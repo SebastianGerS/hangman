@@ -28,14 +28,21 @@ function newGame() {
 }// Funktion som startar spelet vid knapptryckning, och då tillkallas andra funktioner
 
 function wordSelector() {
-    selectedWord = wordList[Math.round(Math.random()*10)];
+    selectedWord = wordList[Math.floor(Math.random()*10)];
 }// Funktion som slumpar fram ett ord
  
 function numberOfLetters() {
+    while(letterBoxes.firstElementChild.firstChild) {
+        letterBoxes.firstElementChild.removeChild(letterBoxes.firstElementChild.firstChild);
+    }
     var newLi;
-    for (var i = 5 ; i < selectedWord.length; i++) {
-        newLi = document.createElement('li');
-        letterBoxes.firstElementChild.appendChild(newLi);
+    for (var i = 0 ; i < selectedWord.length; i++) {
+        if (selectedWord.charAt(i) == ' ') {
+            letterBoxes.firstElementChild.lastChild.classList.add("margin-right");
+        } else 
+            newLi = document.createElement('li');
+            newLi.classList.add("liLetterBoxes");
+            letterBoxes.firstElementChild.appendChild(newLi);
     }
 }// Funktionen som tar fram bokstävernas rutor, antal beror på vilket ord
 

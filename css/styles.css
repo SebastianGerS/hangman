@@ -110,7 +110,7 @@ footer {
   min-width: 84px;
 }
 
-#letterBoxes li {
+.liLetterBoxes {
   display: inline-flex;
   border: 1px solid #666;
   color: #666;
@@ -120,7 +120,12 @@ footer {
   margin-top: 1em;
   padding: 20px 5px;
   text-align: center;
-  width: 2em;
+  width: 1.8em;
+  margin-right: 0.2em;
+}
+
+.margin-right {
+  margin-right: 1em;
 }
 
 #guessField input {
