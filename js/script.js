@@ -12,15 +12,32 @@ var startTime; // Mäter tiden
 
 // Funktion som körs då hela webbsidan är inladdad, dvs då all HTML-kod är utförd
 // Initiering av globala variabler samt koppling av funktioner till knapparna.
-function init() {} // End init
+function init() {
+    startGameBtn = document.querySelector('#startGameBtn');
+    letterBoxes = document.querySelector('#letterBoxes');
+    wordList = ['Chas Academy', 'Programming','School','Student','Teacher','JavaScript','Hyper Text Markup Language','Cascading Style Sheets', 'Hypertext Preprocessor','Game of Thrones'];
+    startGameBtn.addEventListener('click',newGame);
+} // End init
 
 window.onload = init; // Se till att init aktiveras då sidan är inladdad
 
-// Funktion som startar spelet vid knapptryckning, och då tillkallas andra funktioner
+function newGame() {
+    wordSelector();
+    numberOfLetters();
 
-// Funktion som slumpar fram ett ord
+}// Funktion som startar spelet vid knapptryckning, och då tillkallas andra funktioner
+
+function wordSelector() {
+    selectedWord = wordList[Math.round(Math.random()*10)];
+}// Funktion som slumpar fram ett ord
  
-// Funktionen som tar fram bokstävernas rutor, antal beror på vilket ord
+function numberOfLetters() {
+    var newLi;
+    for (var i = 5 ; i < selectedWord.length; i++) {
+        newLi = document.createElement('li');
+        letterBoxes.firstElementChild.appendChild(newLi);
+    }
+}// Funktionen som tar fram bokstävernas rutor, antal beror på vilket ord
 
 // Funktion som körs när du trycker på bokstäverna och gissar bokstav
 

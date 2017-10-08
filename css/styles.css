@@ -112,9 +112,6 @@ footer {
 
 #letterBoxes li {
   display: inline-flex;
-}
-
-#letterBoxes input {
   border: 1px solid #666;
   color: #666;
   font-size: 1.5em;
@@ -124,6 +121,18 @@ footer {
   padding: 20px 5px;
   text-align: center;
   width: 2em;
+}
+
+#guessField input {
+  border: 1px solid #666;
+  color: #666;
+  font-size: 1.5em;
+  font-weight: bold;
+  line-height: 2em;
+  margin-top: 1em;
+  padding: 20px 5px;
+  text-align: center;
+  width: 19em;
 }
 
 #message {
