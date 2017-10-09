@@ -116,12 +116,18 @@ footer {
   color: #666;
   font-size: 1.5em;
   font-weight: bold;
-  line-height: 2em;
+  /*line-height: 2em;*/
   margin-top: 1em;
-  padding: 20px 5px;
+  padding: 20px 0;
   text-align: center;
   width: 1.8em;
   margin-right: 0.2em;
+}
+
+.corect-letter {
+  padding: 5px 0;
+  /*line-height: 1em;*/
+  
 }
 
 .margin-right {
@@ -138,6 +144,12 @@ footer {
   padding: 20px 5px;
   text-align: center;
   width: 19em;
+}
+
+#userGuessBtn {
+  margin: 1em;
+  width: 3em;
+  height: 2em;
 }
 
 #message {

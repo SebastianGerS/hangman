@@ -9,7 +9,7 @@ var msgElem; // Ger meddelande när spelet är över
 var startGameBtn; // Knappen du startar spelet med
 var letterButtons; // Knapparna för bokstäverna
 var startTime; // Mäter tiden
-
+var submitGuessBtn;
 // Funktion som körs då hela webbsidan är inladdad, dvs då all HTML-kod är utförd
 // Initiering av globala variabler samt koppling av funktioner till knapparna.
 function init() {
@@ -17,6 +17,9 @@ function init() {
     letterBoxes = document.querySelector('#letterBoxes');
     wordList = ['Chas Academy', 'Programming','School','Student','Teacher','JavaScript','Hyper Text Markup Language','Cascading Style Sheets', 'Hypertext Preprocessor','Game of Thrones'];
     startGameBtn.addEventListener('click',newGame);
+    submitGuessBtn = document.querySelector("#userGuess");
+    submitGuessBtn.addEventListener('input', letterChecker);
+    
 } // End init
 
 window.onload = init; // Se till att init aktiveras då sidan är inladdad
@@ -36,7 +39,7 @@ function numberOfLetters() {
         letterBoxes.firstElementChild.removeChild(letterBoxes.firstElementChild.firstChild);
     }
     var newLi;
-    for (var i = 0 ; i < selectedWord.length; i++) {
+    for (var i = 0; i < selectedWord.length; i++) {
         if (selectedWord.charAt(i) == ' ') {
             letterBoxes.firstElementChild.lastChild.classList.add("margin-right");
         } else 
@@ -46,7 +49,48 @@ function numberOfLetters() {
     }
 }// Funktionen som tar fram bokstävernas rutor, antal beror på vilket ord
 
-// Funktion som körs när du trycker på bokstäverna och gissar bokstav
+function letterChecker() {
+    var phraseSplit;
+    var selectedWordCopy = "";
+    if (/ /.test(selectedWord)) {
+        phraseSplit = selectedWord.split(" ");
+
+        for (j= 0; j< phraseSplit.length; j++) {
+            selectedWordCopy += phraseSplit[j]; 
+        }
+    } else {
+        selectedWordCopy = selectedWord;
+    }
+    var userGuess = document.querySelector("#userGuess").value;
+    userGuess.trim();
+    var guessIndex = selectedWordCopy.search(userGuess);
+    if (guessIndex == -1 && userGuess.length == 1) {
+
+    } else if (guessIndex == -1 && userGuess.length > 1) {
+
+    } else if (userGuess.length == 1) {
+        var liList = document.querySelectorAll(".liLetterBoxes");
+        for (var k = 0; k < liList.length; k++) {
+           if (k == guessIndex) {
+               liList[k].innerHTML = userGuess;
+               liList[k].classList.add("corect-letter");
+           } 
+        }
+    } else {
+        var liList = document.querySelectorAll(".liLetterBoxes");
+        for (var l = 0 ; l < liList.length; l++ ) {
+            if( l == guessIndex) {
+                var userGuessIndex = 0;
+                for (var m = 0; m < userGuess.length; m++) {
+                    liList[l].innerHTML= userGuess.charAt(userGuessIndex);
+                    l++;
+                    userGuessIndex++;
+                }
+            }
+
+        }
+    }
+}// Funktion som körs när du trycker på bokstäverna och gissar bokstav
 
 // Funktionen ropas vid vinst eller förlust, gör olika saker beroende av det
 
