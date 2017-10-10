@@ -17,8 +17,8 @@ function init() {
     letterBoxes = document.querySelector('#letterBoxes');
     wordList = ['Chas Academy', 'Programming','School','Student','Teacher','JavaScript','Hyper Text Markup Language','Cascading Style Sheets', 'Hypertext Preprocessor','Game of Thrones'];
     startGameBtn.addEventListener('click',newGame);
-    submitGuessBtn = document.querySelector("#userGuess");
-    submitGuessBtn.addEventListener('input', letterChecker);
+    submitGuessBtn = document.querySelector("#userGuessBtn");
+    submitGuessBtn.addEventListener('click', letterChecker);
     
 } // End init
 
@@ -64,16 +64,42 @@ function letterChecker() {
     var userGuess = document.querySelector("#userGuess").value;
     userGuess.trim();
     var guessIndex = selectedWordCopy.search(userGuess);
-    if (guessIndex == -1 && userGuess.length == 1) {
+    var itsAMatch = false;
+    var liList = document.querySelectorAll(".liLetterBoxes");
+    if (userGuess.length == 1) {
+        for (var k = 0; k < selectedWordCopy.length; k++) {  
+            if(selectedWordCopy.charAt(k) == userGuess) {
+                itsAMatch = true
+                liList[k].innerHTML = userGuess;
+                liList[k].classList.add("corect-letter");
+            }
+        }
+    } else if (userGuess.length > 1 && guessIndex != -1){
+        for (var l = 0; l < liList.length; l++ ) {
+            if( l == guessIndex) {
+                
+                var userGuessIndex = 0;
+                for (var m = 0; m < userGuess.length; m++) {
+                    liList[l].innerHTML= userGuess.charAt(userGuessIndex);
+                    l++;
+                    userGuessIndex++;
+                }
+            }
+
+        }
+
+    }
+}
+    /*if (guessIndex == -1 && userGuess.length == 1) {
 
     } else if (guessIndex == -1 && userGuess.length > 1) {
 
     } else if (userGuess.length == 1) {
-        var liList = document.querySelectorAll(".liLetterBoxes");
+        
         for (var k = 0; k < liList.length; k++) {
            if (k == guessIndex) {
-               liList[k].innerHTML = userGuess;
-               liList[k].classList.add("corect-letter");
+               
+               
            } 
         }
     } else {
@@ -90,7 +116,7 @@ function letterChecker() {
 
         }
     }
-}// Funktion som körs när du trycker på bokstäverna och gissar bokstav
+}*/// Funktion som körs när du trycker på bokstäverna och gissar bokstav
 
 // Funktionen ropas vid vinst eller förlust, gör olika saker beroende av det
 
