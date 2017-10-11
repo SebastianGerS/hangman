@@ -12,6 +12,9 @@ var startTime; // Mäter tiden
 var submitGuessBtn; // knapp som submitar användares gissning
 var numberOfCorrectLetters; //visar hur många korekta bokstäver anvädnaren har gissat
 var guessField;
+var listOfGuesses;
+var victoryMessage;
+var gameOverMessege;
 // Funktion som körs då hela webbsidan är inladdad, dvs då all HTML-kod är utförd
 // Initiering av globala variabler samt koppling av funktioner till knapparna.
 function init() {
@@ -26,6 +29,9 @@ function init() {
     msgElem = document.querySelector('#message');
     letterButtons = document.querySelector('#letterButtons');
     guessField = document.querySelector('#guessField');
+    victoryMessage = document.createElement('p');
+    gameOverMessege = document.createElement('p');
+    
    
 
 } // End init
@@ -33,10 +39,15 @@ function init() {
 window.onload = init; // Se till att init aktiveras då sidan är inladdad
 
 function newGame() {
+    listOfGuesses = [];
     letterButtons.style.display = 'inline-flex';
-    guessField.style.display = 'inline';
+    guessField.style.display = 'inline-flex';
+    victoryMessage.innerHTML = "";
+    gameOverMessege.innerHTML = "";
+    hangmanImg.src = './images/h0.png'; 
     wordSelector();
     numberOfLetters();
+    
 
 }// Funktion som startar spelet vid knapptryckning, och då tillkallas andra funktioner
 
@@ -78,6 +89,12 @@ function letterChecker() {
     var userGuess = document.querySelector("#userGuess").value;
     userGuess = userGuess.trim();
     userGuess = userGuess.toUpperCase();
+    for (var m = 0; m < listOfGuesses.length; m++) {
+        if (listOfGuesses[m] == userGuess) {
+            console.log('incorect guess, you have alredy guessed this letter or phrase before');
+            return;
+        }
+    }
     var guessIndex = uppercaseCopy.search(userGuess);
     var itsAMatch = false;
     var liList = document.querySelectorAll(".liLetterBoxes");
@@ -105,21 +122,21 @@ function letterChecker() {
         }
 
     }
+    listOfGuesses.push(userGuess);
     if (!itsAMatch) {
         hangmanImgNr++;
         if(hangmanImgNr <= 6) {
             hangmanImg.src = './images/h' + hangmanImgNr + '.png'; 
         } else {
-            var gameOverMessege = document.createElement('p');
-            gameOverMessege.innerHTML = "Game Over :'("
+            gameOverMessege.innerHTML = "Game Over :'(";
             msgElem.appendChild(gameOverMessege);
         }
     } else if (itsAMatch && numberOfCorrectLetters >= selectedWordCopy.length) {
-        var victoryMessage = document.createElement('p');
-            victoryMessage.innerHTML = "You Won!!!!";
-            msgElem.appendChild(victoryMessage);
-            console.log('You did it!');
+        victoryMessage.innerHTML = "You Won!!!!";    
+        msgElem.appendChild(victoryMessage);
 
+    } else if(itsAMatch) {
+       
     }
 
 } /// Funktion som körs när du trycker på bokstäverna och gissar bokstav
