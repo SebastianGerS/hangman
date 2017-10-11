@@ -96,7 +96,7 @@ footer {
 }
 
 #letterButtons {
-  display: inline-flex;
+  display: none;
   list-style-type: none;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -134,6 +134,9 @@ footer {
   margin-right: 1em;
 }
 
+#guessField {
+  display:none;
+}
 #guessField input {
   border: 1px solid #666;
   color: #666;
