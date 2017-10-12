@@ -92,6 +92,7 @@ footer {
   font-size: 1.5em;
   margin-left:auto;
   margin-right:auto;
+  cursor: pointer;
 }
 
 #hangman {
@@ -100,13 +101,13 @@ footer {
 
 #gameBoard {
   padding: 10px 0;
-  display:flex;
+  display:none;
   flex-direction:column;
   align-items: center;
 }
 
 #letterButtons {
-  display: none;
+  display: inline-flex;
   list-style-type: none;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -115,7 +116,6 @@ footer {
 
 #letterButtons li:not(last-child) {
   margin: 4px 4px;
-  cursor: pointer;
   max-width: 84px;
   min-width: 84px;
 }
@@ -145,7 +145,7 @@ footer {
 }
 
 #guessField {
-  display:none;
+  display:inline-flex;
 }
 #guessField input {
   border: 1px solid #666;
@@ -166,6 +166,7 @@ footer {
   margin: 2.8em 1em 2.8em 1em;
   padding: 1em 1em;
   text-align: center;
+  cursor: pointer;
 
 }
 
@@ -182,7 +183,6 @@ footer {
   border: 0;
   border: 2px solid #666;
   color: #666;
-  cursor: pointer;
   display: block;
   font: inherit;
   line-height: normal;
@@ -233,13 +233,13 @@ footer {
   background-size: 7px 7px;
 }
 
-.btn--stripe:disabled {
+.disabled {
   background-color: #999;
   color: #fff;
   border-color: #666;
 }
 
-.btn--stripe:disabled:after, {
+.disabled:after, {
   background-image: -webkit-repeating-linear-gradient(
     45deg,
     #fff,

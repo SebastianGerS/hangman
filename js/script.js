@@ -15,6 +15,9 @@ var guessField;
 var listOfGuesses;
 var victoryMessage;
 var gameOverMessege;
+var errorMessage;
+var gameBoard;
+var userInput;
 // Funktion som körs då hela webbsidan är inladdad, dvs då all HTML-kod är utförd
 // Initiering av globala variabler samt koppling av funktioner till knapparna.
 function init() {
@@ -24,13 +27,20 @@ function init() {
     startGameBtn.addEventListener('click',newGame);
     submitGuessBtn = document.querySelector("#userGuessBtn");
     submitGuessBtn.addEventListener('click', letterChecker);
+    userInput = document.querySelector('#userGuess');
+    userInput.addEventListener('change',letterChecker);
     hangmanImg = document.querySelector('#hangman');
     hangmanImgNr = 0; 
     msgElem = document.querySelector('#message');
-    letterButtons = document.querySelector('#letterButtons');
+    letterButtons = document.querySelectorAll('#letterButtons li');
     guessField = document.querySelector('#guessField');
     victoryMessage = document.createElement('p');
     gameOverMessege = document.createElement('p');
+    errorMessage = document.createElement('p');
+    gameBoard = document.querySelector('#gameBoard');
+    startTime = document.querySelector('#timer');
+    
+
     
    
 
@@ -40,13 +50,49 @@ window.onload = init; // Se till att init aktiveras då sidan är inladdad
 
 function newGame() {
     listOfGuesses = [];
-    letterButtons.style.display = 'inline-flex';
-    guessField.style.display = 'inline-flex';
+    gameBoard.style.display = 'flex';
     victoryMessage.innerHTML = "";
     gameOverMessege.innerHTML = "";
+    errorMessage.innerHTML = ""; 
     hangmanImg.src = './images/h0.png'; 
     wordSelector();
     numberOfLetters();
+    for (var o = 0; o < letterButtons.length; o++) {
+            letterButtons[o].classList.remove('disabled');
+    }
+    
+    var s1 = 0;
+    var s2 = 0;
+    var m1 = 0;
+    var m2 = 0;
+    var h1 = 0;
+    var h2 = 0;
+    startTime.innerHTML ='Timer: '+ h2 + h1 + ':' +m2 + m1 + ':'+ s2 + s1;
+    setInterval(function() {
+        s1++;
+        if (s1 ==  10) {
+            s2++;
+            s1 = 0;    
+        } 
+        if (s2 == 10) {
+            m1++;
+            s2 = 0;
+        }
+        if (m1 == 10) {
+            m2++;
+            m1 = 0;
+        }
+        if (m2 == 10) {
+            h1++;
+            m2 = 0;
+        }
+        if (h1 == 10) {
+            h2++;
+            h1 = 0;
+        }
+        startTime.innerHTML ='Timer: '+ h2 + h1 + ':' +m2 + m1 + ':'+ s2 + s1;
+    }, 1000);
+   
     
 
 }// Funktion som startar spelet vid knapptryckning, och då tillkallas andra funktioner
@@ -73,9 +119,13 @@ function numberOfLetters() {
 }// Funktionen som tar fram bokstävernas rutor, antal beror på vilket ord
 
 function letterChecker() {
+    if (msgElem.firstChild) {
+        msgElem.removeChild;
+    }
     var phraseSplit;
     var selectedWordCopy = "";
     var uppercaseCopy = "";
+    errorMessage.innerHTML = ""; 
     if (/ /.test(selectedWord)) {
         phraseSplit = selectedWord.split(" ");
 
@@ -89,9 +139,11 @@ function letterChecker() {
     var userGuess = document.querySelector("#userGuess").value;
     userGuess = userGuess.trim();
     userGuess = userGuess.toUpperCase();
+    document.querySelector("#userGuess").value = "";
     for (var m = 0; m < listOfGuesses.length; m++) {
         if (listOfGuesses[m] == userGuess) {
-            console.log('incorect guess, you have alredy guessed this letter or phrase before');
+            errorMessage.innerHTML = "incorect guess, you have alredy guessed this letter or phrase before, try a nother guess!";
+            msgElem.appendChild(errorMessage);
             return;
         }
     }
@@ -130,13 +182,20 @@ function letterChecker() {
         } else {
             gameOverMessege.innerHTML = "Game Over :'(";
             msgElem.appendChild(gameOverMessege);
+            gameBoard.style.display = 'none';
         }
     } else if (itsAMatch && numberOfCorrectLetters >= selectedWordCopy.length) {
         victoryMessage.innerHTML = "You Won!!!!";    
         msgElem.appendChild(victoryMessage);
+        gameBoard.style.display = 'none';
 
     } else if(itsAMatch) {
        
+    }
+    for (var n = 0; n < letterButtons.length; n++) {
+        if(letterButtons[n].textContent == userGuess) {
+            letterButtons[n].classList.add('disabled');
+        }
     }
 
 } /// Funktion som körs när du trycker på bokstäverna och gissar bokstav

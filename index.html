@@ -10,7 +10,7 @@
 
 <body>
     <header>
-        <h1>Uppgift 05 - Hangman</h1>
+        <h1>Uppgift 04 - Hangman</h1>
     </header>
     <main>
         <article>
@@ -23,8 +23,10 @@
             <ul>
                 <li>Övriga regler</li>
             </ul>
+
         </article>
         <button class="btn btn--stripe" type="button" id="startGameBtn">Starta spelet</button>
+        <p id="timer"></p>
         <section id="gameBoard">
             <ul id="letterButtons">
                 <li class="btn btn--stripe" value="A">A</li>
@@ -68,12 +70,12 @@
             <section id="guessField">
                 <p><input id ="userGuess" type="text" placeholder="Type your guess here (letter or word)"/></p>
                 <button class="btn" id ="userGuessBtn">Place your guess!</button>
-
             </section>
         </section>
-        <section id="message">
-            <!-- This is where messages should appear -->
-        </section>
+        <article id="message">
+                <!-- This is where messages should appear -->
+        </article>
+        
     </main>
     <footer>
         Chas Academy - Hangman
