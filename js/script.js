@@ -17,7 +17,14 @@ var victoryMessage;
 var gameOverMessege;
 var errorMessage;
 var gameBoard;
-var userInput;
+var userInput;var s1 = 0;
+var s2;
+var m1;
+var m2;
+var h1;
+var h2;
+var myTimer;
+
 // Funktion som körs då hela webbsidan är inladdad, dvs då all HTML-kod är utförd
 // Initiering av globala variabler samt koppling av funktioner till knapparna.
 function init() {
@@ -60,38 +67,16 @@ function newGame() {
     for (var o = 0; o < letterButtons.length; o++) {
             letterButtons[o].classList.remove('disabled');
     }
-    
-    var s1 = 0;
-    var s2 = 0;
-    var m1 = 0;
-    var m2 = 0;
-    var h1 = 0;
-    var h2 = 0;
+    clearInterval(myTimer);
+    s1 = 0;
+    s2 = 0;
+    m1 = 0;
+    m2 = 0;
+    h1 = 0;
+    h2 = 0;
     startTime.innerHTML ='Timer: '+ h2 + h1 + ':' +m2 + m1 + ':'+ s2 + s1;
-    setInterval(function() {
-        s1++;
-        if (s1 ==  10) {
-            s2++;
-            s1 = 0;    
-        } 
-        if (s2 == 10) {
-            m1++;
-            s2 = 0;
-        }
-        if (m1 == 10) {
-            m2++;
-            m1 = 0;
-        }
-        if (m2 == 10) {
-            h1++;
-            m2 = 0;
-        }
-        if (h1 == 10) {
-            h2++;
-            h1 = 0;
-        }
-        startTime.innerHTML ='Timer: '+ h2 + h1 + ':' +m2 + m1 + ':'+ s2 + s1;
-    }, 1000);
+
+    myTimer =setInterval(timer, 1000);
    
     
 
@@ -152,7 +137,7 @@ function letterChecker() {
     var liList = document.querySelectorAll(".liLetterBoxes");
     if (userGuess.length == 1) {
         for (var k = 0; k < selectedWordCopy.length; k++) {  
-            if(uppercaseCopy.charAt(k) == userGuess) {
+            if(uppercaseCopy.charAt(k) == userGuess && !liList[k].classList.contains("corect-letter") ) {
                 itsAMatch = true;
                 liList[k].innerHTML = selectedWordCopy.charAt(k);
                 liList[k].classList.add("corect-letter");
@@ -164,10 +149,12 @@ function letterChecker() {
             if( l == guessIndex) {
                 itsAMatch = true;
                 for (var m = 0; m < userGuess.length; m++) {
-                    liList[l].innerHTML= selectedWordCopy.charAt(l);
-                    liList[l].classList.add("corect-letter");
+                    if (!liList[l].classList.contains("corect-letter")) {
+                        liList[l].innerHTML= selectedWordCopy.charAt(l);
+                        liList[l].classList.add("corect-letter");
+                        numberOfCorrectLetters++;
+                    }
                     l++;
-                    numberOfCorrectLetters++;
                 }
             }
 
@@ -203,3 +190,30 @@ function letterChecker() {
 // Funktionen ropas vid vinst eller förlust, gör olika saker beroende av det
 
 // Funktion som inaktiverar/aktiverar bokstavsknapparna beroende på vilken del av spelet du är på
+
+function timer() {
+    
+    s1++;
+    if (s1 ==  10) {
+        s2++;
+        s1 = 0;    
+    } 
+    if (s2 == 10) {
+        m1++;
+        s2 = 0;
+    }
+    if (m1 == 10) {
+        m2++;
+        m1 = 0;
+    }
+    if (m2 == 10) {
+        h1++;
+        m2 = 0;
+    }
+    if (h1 == 10) {
+        h2++;
+        h1 = 0;
+    }
+    startTime.innerHTML ='Timer: '+ h2 + h1 + ':' +m2 + m1 + ':'+ s2 + s1;
+    
+}
