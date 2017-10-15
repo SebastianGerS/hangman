@@ -125,6 +125,11 @@ function letterChecker() {
     userGuess = userGuess.trim();
     userGuess = userGuess.toUpperCase();
     document.querySelector("#userGuess").value = "";
+    if (userGuess === "" || userGuess === " ") { 
+        errorMessage.innerHTML = "incorect guess, you have to type atlest one letter ,try a nother guess!";
+        msgElem.appendChild(errorMessage);
+        return;
+    }
     for (var m = 0; m < listOfGuesses.length; m++) {
         if (listOfGuesses[m] == userGuess) {
             errorMessage.innerHTML = "incorect guess, you have alredy guessed this letter or phrase before, try a nother guess!";
@@ -167,11 +172,13 @@ function letterChecker() {
         if(hangmanImgNr <= 6) {
             hangmanImg.src = './images/h' + hangmanImgNr + '.png'; 
         } else {
+            clearInterval(myTimer);
             gameOverMessege.innerHTML = "Game Over :'(";
             msgElem.appendChild(gameOverMessege);
             gameBoard.style.display = 'none';
         }
     } else if (itsAMatch && numberOfCorrectLetters >= selectedWordCopy.length) {
+        clearInterval(myTimer);
         victoryMessage.innerHTML = "You Won!!!!";    
         msgElem.appendChild(victoryMessage);
         gameBoard.style.display = 'none';
@@ -198,7 +205,7 @@ function timer() {
         s2++;
         s1 = 0;    
     } 
-    if (s2 == 10) {
+    if (s2 == 6) {
         m1++;
         s2 = 0;
     }
@@ -206,7 +213,7 @@ function timer() {
         m2++;
         m1 = 0;
     }
-    if (m2 == 10) {
+    if (m2 == 6) {
         h1++;
         m2 = 0;
     }

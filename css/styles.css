@@ -21,6 +21,7 @@ body {
   align-items: center;
   height: 100%;
   min-height: 100vh;
+  max-width: 100%;
 }
 
 header {
@@ -116,29 +117,34 @@ footer {
 
 #letterButtons li:not(last-child) {
   margin: 4px 4px;
-  max-width: 84px;
-  min-width: 84px;
+  min-width: 2.5em;
 }
 
+#letterBoxes {
+  display: block;
+  margin-top: 1em;
+}
 .liLetterBoxes {
   display: inline-flex;
+  justify-content: center;
   border: 1px solid #666;
   color: #666;
   font-size: 1.5em;
   font-weight: bold;
-  /*line-height: 2em;*/
-  margin-top: 1em;
-  padding: 20px 0;
   text-align: center;
-  width: 1.8em;
-  margin-right: 0.2em;
+  width: 2em;
+  height: 2em;
+  margin-right:0.2em; 
+  padding-top: 0.35em;
+ 
 }
-
-.corect-letter {
-  padding: 5px 0;
-  /*line-height: 1em;*/
+.liLetterBoxes:after {
+  content: "\00a0";
+}
+.corect-letter:after {
+  content: "";
+}
   
-}
 
 .margin-right {
   margin-right: 1em;
@@ -190,7 +196,7 @@ footer {
   margin: 0;
   overflow: visible;
   padding: 0;
-  padding: 16px 36px 22px;
+  padding: 16px 36px 16px;
   text-decoration: none;
   text-transform: uppercase;
 }
