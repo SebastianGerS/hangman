@@ -1,29 +1,28 @@
 // Globala variabler
 
-var wordList; // Lista med spelets alla ord
-var selectedWord; // Ett av orden valt av en slumpgenerator
-var letterBoxes; //Rutorna där bokstäverna ska stå
-var hangmanImg; //Bild som kommer vid fel svar
-var hangmanImgNr; // Vilken av bilderna som kommer upp beroende på hur många fel du gjort
-var msgElem; // Ger meddelande när spelet är över
-var startGameBtn; // Knappen du startar spelet med
-var letterButtons; // Knapparna för bokstäverna
-var startTime; // Mäter tiden
-var submitGuessBtn; // knapp som submitar användares gissning
-var numberOfCorrectLetters; //visar hur många korekta bokstäver anvädnaren har gissat
-var guessField;
-var listOfGuesses;
-var victoryMessage;
-var gameOverMessege;
-var errorMessage;
-var gameBoard;
-var userInput;var s1 = 0;
-var s2;
-var m1;
-var m2;
-var h1;
-var h2;
-var myTimer;
+let wordList; // Lista med spelets alla ord
+let selectedWord; // Ett av orden valt av en slumpgenerator
+let letterBoxes; //Rutorna där bokstäverna ska stå
+let hangmanImg; //Bild som kommer vid fel svar
+let hangmanImgNr; // Vilken av bilderna som kommer upp beroende på hur många fel du gjort
+let msgElem; // Ger meddelande när spelet är över
+let startGameBtn; // Knappen du startar spelet med
+let letterButtons; // Knapparna för bokstäverna
+let startTime; // Mäter tiden
+let submitGuessBtn; // knapp som submitar användares gissning
+let numberOfCorrectLetters; //visar hur många korekta bokstäver anvädnaren har gissat
+let guessField;
+let listOfGuesses;
+let victoryMessage;
+let gameOverMessege;
+let errorMessage;
+let gameBoard;
+let userInput;
+let myTimer;
+let selectedWordCopy;
+let uppercaseCopy;
+let liLetterBoxes;
+let userGuess;
 
 // Funktion som körs då hela webbsidan är inladdad, dvs då all HTML-kod är utförd
 // Initiering av globala variabler samt koppling av funktioner till knapparna.
@@ -46,11 +45,8 @@ function init() {
     errorMessage = document.createElement('p');
     gameBoard = document.querySelector('#gameBoard');
     startTime = document.querySelector('#timer');
-    
-
-    
-   
-
+    selectedWordCopy = "";
+    uppercaseCopy = "";
 } // End init
 
 window.onload = init; // Se till att init aktiveras då sidan är inladdad
@@ -62,38 +58,37 @@ function newGame() {
     gameOverMessege.innerHTML = "";
     errorMessage.innerHTML = ""; 
     hangmanImg.src = './images/h0.png'; 
+    let activateTimer;
     wordSelector();
-    numberOfLetters();
-    for (var o = 0; o < letterButtons.length; o++) {
-            letterButtons[o].classList.remove('disabled');
-    }
-    clearInterval(myTimer);
-    s1 = 0;
-    s2 = 0;
-    m1 = 0;
-    m2 = 0;
-    h1 = 0;
-    h2 = 0;
-    startTime.innerHTML ='Timer: '+ h2 + h1 + ':' +m2 + m1 + ':'+ s2 + s1;
-
-    myTimer =setInterval(timer, 1000);
+    numberOfLetterBoxes();
+    resetLetterButtons()
+    wordProcessing(); 
+    clearInterval(activateTimer);
+    startTime.innerHTML ='Timer: 00:00:00';
+    myTimer = new Timer(0,0,0,0,0,0);
+    activateTimer = setInterval(myTimer.increment, 1000);
    
     
 
 }// Funktion som startar spelet vid knapptryckning, och då tillkallas andra funktioner
-
+function resetLetterButtons() {
+    for (let o = 0; o < letterButtons.length; o++) {
+        letterButtons[o].classList.remove('disabled');
+    }
+}
 function wordSelector() {
     selectedWord = wordList[Math.floor(Math.random()*10)];
     numberOfCorrectLetters = 0;
+    
 
 }// Funktion som slumpar fram ett ord
  
-function numberOfLetters() {
+function numberOfLetterBoxes() {
     while(letterBoxes.firstElementChild.firstChild) {
         letterBoxes.firstElementChild.removeChild(letterBoxes.firstElementChild.firstChild);
     }
-    var newLi;
-    for (var i = 0; i < selectedWord.length; i++) {
+    let newLi;
+    for (let i = 0; i < selectedWord.length; i++) {
         if (selectedWord.charAt(i) == ' ') {
             letterBoxes.firstElementChild.lastChild.classList.add("margin-right");
         } else 
@@ -101,62 +96,69 @@ function numberOfLetters() {
             newLi.classList.add("liLetterBoxes");
             letterBoxes.firstElementChild.appendChild(newLi);
     }
+    liLetterBoxes = document.querySelectorAll(".liLetterBoxes");
 }// Funktionen som tar fram bokstävernas rutor, antal beror på vilket ord
+function wordProcessing() {
+    let phraseSplit = [];
 
-function letterChecker() {
-    if (msgElem.firstChild) {
-        msgElem.removeChild;
-    }
-    var phraseSplit;
-    var selectedWordCopy = "";
-    var uppercaseCopy = "";
-    errorMessage.innerHTML = ""; 
     if (/ /.test(selectedWord)) {
         phraseSplit = selectedWord.split(" ");
 
-        for (j= 0; j< phraseSplit.length; j++) {
+        for (let j= 0; j< phraseSplit.length; j++) {
             selectedWordCopy += phraseSplit[j]; 
         }
     } else {
         selectedWordCopy = selectedWord;
     }
     uppercaseCopy = selectedWordCopy.toUpperCase();
-    var userGuess = document.querySelector("#userGuess").value;
-    userGuess = userGuess.trim();
-    userGuess = userGuess.toUpperCase();
-    document.querySelector("#userGuess").value = "";
+
+}
+
+function guessErrorHandeling() {
     if (userGuess === "" || userGuess === " ") { 
         errorMessage.innerHTML = "incorect guess, you have to type atlest one letter ,try a nother guess!";
         msgElem.appendChild(errorMessage);
         return;
     }
-    for (var m = 0; m < listOfGuesses.length; m++) {
+    for (let m = 0; m < listOfGuesses.length; m++) {
         if (listOfGuesses[m] == userGuess) {
             errorMessage.innerHTML = "incorect guess, you have alredy guessed this letter or phrase before, try a nother guess!";
             msgElem.appendChild(errorMessage);
             return;
         }
     }
-    var guessIndex = uppercaseCopy.search(userGuess);
-    var itsAMatch = false;
-    var liList = document.querySelectorAll(".liLetterBoxes");
+}
+
+function guessPreprocessing() {
+    userGuess = document.querySelector("#userGuess").value;
+    userGuess = userGuess.trim();
+    userGuess = userGuess.toUpperCase();
+    document.querySelector("#userGuess").value = "";
+}
+
+function letterChecker() {
+    errorMessage.innerHTML = ""; 
+    guessPreprocessing();
+    guessErrorHandeling();
+    let guessIndex = uppercaseCopy.search(userGuess);
+    let itsAMatch = false;
     if (userGuess.length == 1) {
-        for (var k = 0; k < selectedWordCopy.length; k++) {  
-            if(uppercaseCopy.charAt(k) == userGuess && !liList[k].classList.contains("corect-letter") ) {
+        for (let k = 0; k < selectedWordCopy.length; k++) {  
+            if(uppercaseCopy.charAt(k) == userGuess && !liLetterBoxes[k].classList.contains("corect-letter") ) {
                 itsAMatch = true;
-                liList[k].innerHTML = selectedWordCopy.charAt(k);
-                liList[k].classList.add("corect-letter");
+                liLetterBoxes[k].innerHTML = selectedWordCopy.charAt(k);
+                liLetterBoxes[k].classList.add("corect-letter");
                 numberOfCorrectLetters++;
             }
         }
     } else if (userGuess.length > 1 && guessIndex != -1){
-        for (var l = 0; l < liList.length; l++ ) {
+        for (let l = 0; l < liLetterBoxes.length; l++ ) {
             if( l == guessIndex) {
                 itsAMatch = true;
-                for (var m = 0; m < userGuess.length; m++) {
-                    if (!liList[l].classList.contains("corect-letter")) {
-                        liList[l].innerHTML= selectedWordCopy.charAt(l);
-                        liList[l].classList.add("corect-letter");
+                for (let m = 0; m < userGuess.length; m++) {
+                    if (!liLetterBoxes[l].classList.contains("corect-letter")) {
+                        liLetterBoxes[l].innerHTML= selectedWordCopy.charAt(l);
+                        liLetterBoxes[l].classList.add("corect-letter");
                         numberOfCorrectLetters++;
                     }
                     l++;
@@ -166,61 +168,69 @@ function letterChecker() {
         }
 
     }
+    
+    for (let n = 0; n < letterButtons.length; n++) {
+        if(letterButtons[n].textContent == userGuess) {
+            letterButtons[n].classList.add('disabled');
+        }
+    }
     listOfGuesses.push(userGuess);
+    gameStateUpdate(itsAMatch);
+} /// Funktion som körs när du trycker på bokstäverna och gissar bokstav
+
+function gameStateUpdate(itsAMatch) {
     if (!itsAMatch) {
         hangmanImgNr++;
         if(hangmanImgNr <= 6) {
             hangmanImg.src = './images/h' + hangmanImgNr + '.png'; 
         } else {
             clearInterval(myTimer);
+            errorMessage.innerHTML = "";
             gameOverMessege.innerHTML = "Game Over :'(";
             msgElem.appendChild(gameOverMessege);
             gameBoard.style.display = 'none';
         }
     } else if (itsAMatch && numberOfCorrectLetters >= selectedWordCopy.length) {
         clearInterval(myTimer);
-        victoryMessage.innerHTML = "You Won!!!!";    
+        victoryMessage.innerHTML = "You gueess the corect word " + selectedWord + " that means you won!!! ";    
         msgElem.appendChild(victoryMessage);
         gameBoard.style.display = 'none';
-
-    } else if(itsAMatch) {
-       
     }
-    for (var n = 0; n < letterButtons.length; n++) {
-        if(letterButtons[n].textContent == userGuess) {
-            letterButtons[n].classList.add('disabled');
-        }
-    }
-
-} /// Funktion som körs när du trycker på bokstäverna och gissar bokstav
-
-// Funktionen ropas vid vinst eller förlust, gör olika saker beroende av det
-
-// Funktion som inaktiverar/aktiverar bokstavsknapparna beroende på vilken del av spelet du är på
-
-function timer() {
     
-    s1++;
-    if (s1 ==  10) {
-        s2++;
-        s1 = 0;    
-    } 
-    if (s2 == 6) {
-        m1++;
-        s2 = 0;
+
+}// Funktionen ropas vid vinst eller förlust, gör olika saker beroende av det
+
+function Timer(s1,s2,m1,m2,h1,h2) {
+    this.s1 = s1 || 0;
+    this.s2 = s2 || 0;
+    this.m1 = m1 || 0;
+    this.m2 = m2 || 0;
+    this.h1 = h1 || 0;
+    this.h2 = h2 || 0;
+
+    this.increment = () => {
+            this.s1++;
+        if (this.s1 ==  10) {
+            this.s2++;
+            this.s1 = 0;    
+        } 
+        if (this.s2 == 6) {
+            this.m1++;
+            this.s2 = 0;
+        }
+        if (this.m1 == 10) {
+            this.m2++;
+            this.m1 = 0;
+        }
+        if (this.m2 == 6) {
+            this.h1++;
+            this.m2 = 0;
+        }
+        if (this.h1 == 10) {
+            this.h2++;
+            this.h1 = 0;
+        }
+        startTime.innerHTML ='Timer: '+ this.h2 + this.h1 + ':' +this.m2 + this.m1 + ':'+ this.s2 + this.s1;
     }
-    if (m1 == 10) {
-        m2++;
-        m1 = 0;
-    }
-    if (m2 == 6) {
-        h1++;
-        m2 = 0;
-    }
-    if (h1 == 10) {
-        h2++;
-        h1 = 0;
-    }
-    startTime.innerHTML ='Timer: '+ h2 + h1 + ':' +m2 + m1 + ':'+ s2 + s1;
     
 }
