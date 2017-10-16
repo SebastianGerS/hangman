@@ -17,14 +17,14 @@
             <h2>Välkommen till spelet Hänga gubbe.</h2>
             <p>När du trycker på starta spelet, kommer datorn att välja ett ord slumpmässigt. <br/>
                Det kommer då dyka upp ett visst antal fält som motsvarar antalet bokstäver i ordet. <br/> 
-               Ditt mål är att gissa ordet genom att skriva in den bokstav eller det ord du vill gissa på i input fältet och tycka på enter eller knappen brevid fälltet.<br/>
+               Ditt mål är att gissa ordet genom att skriva in den bokstav eller det ord du vill gissa på i text-fältet och tycka på enter eller knappen brevid fälltet.<br/>
                För varje bokstav du gissar rätt, så fylls dyker det upp en bokstav i på den plats som bokstaven du gissade på motsvarar i ordet. <br/>
-               Boxarna med bokstäver högst upp hjälper dig att hålla koll på vilka bokstäver du redan gissat på.
+               Boxarna med bokstäver högst upp hjälper dig att hålla koll på vilka bokstäver du redan gissat på och du kan även klicka på dem för att mata in bokstäver i text-fältet.
 
             </p>
 
         </article>
-        <button class="btn btn--stripe" type="button" id="startGameBtn"><a href="#gameBoard">Starta spelet</a></button>
+        <button class="btn btn--stripe" type="button" id="startGameBtn"><a href="#hangman">Starta spelet</a></button>
         <p id="timer"></p>
         <section>
             <img id="hangman" src="images/h0.png" alt="hangman">
@@ -39,8 +39,8 @@
                 </ul>
             </section>
             <section id="guessField">
-                <p><input id ="userGuess" type="text" placeholder="Type your guess here (letter or word)"/></p>
-                <button class="btn" id ="userGuessBtn">Place your guess!</button>
+                <input id ="userGuess" type="text" placeholder="Type your guess here (letter or word)"/>
+                <button class="btn btn--stripe" id ="userGuessBtn">Place your guess!</button>
             </section>
             <ul id="letterButtons">
                 <li><button class="btn btn--stripe" value="A">A</button></li>

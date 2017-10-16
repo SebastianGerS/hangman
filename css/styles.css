@@ -7,7 +7,8 @@
 }
 
 body {
-  color: #666;
+  color: #9CBF00;
+  background-color: black;
   font-family: sans-serif;
   display: -webkit-box;
   display: -webkit-flex;
@@ -25,8 +26,8 @@ body {
 }
 
 header {
-  background-color: silver;
-  color: #fff;
+  background-color: #CEFC00;
+  color: #9CBF00;
   -webkit-box-flex: 0;
   -webkit-flex: none;
   -ms-flex: none;
@@ -60,6 +61,8 @@ main > article {
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
+  text-align: center;
+  line-height: 1.5;
 }
 
 main > article > button {
@@ -69,7 +72,7 @@ main > article > button {
 
 main > article > h2 {
   text-align: center;
-  color: #777;
+  color: #9CBF00;
   margin-bottom: 1.5em;
 }
 
@@ -78,11 +81,12 @@ ul {
 }
 
 footer {
-  background-color: silver;
-  border-top: 1px solid #666;
+  background-color: #CEFC00;
+  border-top: 1px solid #C6F200;
   margin-top: 20px;
   padding-top: 30px;
-  color: #fff;
+  padding-bottom:10px;
+  color: #9CBF00;
   font-size: 1.25em;
   width: 100%;
   flex: none;
@@ -93,22 +97,22 @@ footer {
   font-size: 1.5em;
   margin-left:auto;
   margin-right:auto;
-  cursor: pointer;
 }
 
 #hangman {
   display: block;
-  margin: 2em auto;
+  margin: 1em auto;
+  height: 10em
 
 }
 @media only screen and (max-width: 1024px) and (orientation: landscape) {
   #hangman {
-    height: 10em;
+    height: 8em;
   }
 }
 
 #gameBoard {
-  padding: 10px 0;
+  padding: 0.3em 0;
   display:none;
   flex-direction:column;
   align-items: center;
@@ -127,6 +131,7 @@ footer {
   min-width: 2.5em;
 }
 
+}
 #letterBoxes {
   display: block;
   margin-top: 1em;
@@ -134,60 +139,68 @@ footer {
 .liLetterBoxes {
   display: inline-flex;
   justify-content: center;
-  border: 1px solid #666;
-  color: #666;
+  border: 1px solid #C6F200;
+  color: #9CBF00;
   font-size: 1.5em;
   font-weight: bold;
   text-align: center;
-  width: 1.3em;
-  height: 1.3em;
+  width: 1.5em;
+  height: 1.5em;
   margin-right:0.2em; 
+  padding-top:0.15em
  
 }
 .liLetterBoxes:after {
   content: "\00a0";
 }
+.corect-letter {
+  background-color: #CEFC00;
+}
 .corect-letter:after {
   content: "";
 }
   
-
 .margin-right {
   margin-right: 1em;
 }
 
 #guessField {
   display:inline-flex;
+  height: 7.5em;
+
 }
 #guessField input {
-  border: 1px solid #666;
-  color: #666;
+  border: 1px solid #C6F200;
+  color: #C6F200;
+  background-color: #9CBF00;
   font-size: 1.5em;
   font-weight: bold;
   line-height: 2em;
   margin-top: 1em;
-  padding: 20px 5px;
+  padding: 1.5em 0.5em;
   text-align: center;
   width: 19em;
-  height: 3.5em;
+  height: 3em;
+}
+#guessField input::placeholder {
+  color:#C6F200;
 }
 
 #userGuessBtn {
-  width: 15em;
-  height: 3em;
-  margin: 2.8em 1em 2.8em 1em;
-  padding: 1em 1em 1.1em 1em;
+  width: 14em;
+  height: 2.5em;
+  margin: 1.25em 1em 2.8em 1em;
+  padding: 0.6em 1em 1.1em 1em;
   text-align: center;
-  cursor: pointer;
 
 }
 a {
   text-decoration: none;
-  color: #666;
+  color: #9CBF00;
 }
 
 #message {
-  padding-top: 20px;
+  padding: 0;
   font-size: 1.5em;
 }
 
@@ -197,10 +210,11 @@ a {
   background: transparent;
   border-radius: 6px;
   border: 0;
-  border: 2px solid #666;
-  color: #666;
+  border: 2px solid #C6F200;
+  color: #9CBF00;
   display: block;
   font: inherit;
+  font-size: 1.5em;
   line-height: normal;
   margin-bottom: 16px;
   margin: 0;
@@ -209,6 +223,7 @@ a {
   padding: 16px 36px 16px;
   text-decoration: none;
   text-transform: uppercase;
+  cursor: pointer;
 }
 
 .btn::-moz-focus-inner {
@@ -228,21 +243,21 @@ a {
   width: 100%;
   background-image: -webkit-repeating-linear-gradient(
     45deg,
-    #666,
-    #666 1px,
+    #C6F200,
+    #C6F200 1px,
     transparent 2px,
     transparent 5px
   );
   background-image: repeating-linear-gradient(
     45deg,
-    #666,
-    #666 1px,
+    #C6F200,
+    #C6F200 1px,
     transparent 2px,
     transparent 5px
   );
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  border-top: 1px solid #666;
+  border-top: 1px solid #C6F200;
   position: absolute;
   left: 0;
   bottom: 0;
@@ -250,9 +265,9 @@ a {
 }
 
 .disabled {
-  background-color: #999;
-  color: #fff;
-  border-color: #666;
+  background-color: #9CBF00;
+  color: #CEFC00;
+  border-color: #9CBF00;
 }
 
 .disabled:after, {

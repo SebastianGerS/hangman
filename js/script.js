@@ -26,7 +26,7 @@ let activateTimer;
 function init() {
     startGameBtn = document.querySelector('#startGameBtn');
     letterBoxes = document.querySelector('#letterBoxes');
-    wordList = ['Chas Academy', 'Programming','School','Student','Teacher','JavaScript','Hyper Text Markup Language','Cascading Style Sheets', 'Hypertext Preprocessor','Game of Thrones'];
+    wordList = ['Chas Academy', 'Programming','School','Student','Teacher','JavaScript','HyperText Markup Language','Cascading Style Sheets', 'Hypertext Preprocessor','Game of Thrones'];
     startGameBtn.addEventListener('click',newGame);
     submitGuessBtn = document.querySelector("#userGuessBtn");
     submitGuessBtn.addEventListener('click', letterChecker);
@@ -62,7 +62,7 @@ function newGame() {
     resetLetterButtons();
     wordProcessing(); 
     clearInterval(activateTimer);
-    startTime.innerHTML ='Time: 00:00:00';
+    startTime.innerHTML = 'Time: 00:00:00';
     myTimer = new Timer(0,0,0,0,0,0);
     activateTimer = setInterval(myTimer.increment, 1000);
 }// Funktion som startar spelet vid knapptryckning, och då tillkallas andra funktioner
@@ -114,7 +114,7 @@ function insertLetter() {
     let toSave = document.querySelector("#userGuess").value;
     toSave = toSave.substring(0,toSave.length-1);
     document.querySelector("#userGuess").value = toSave;
-    } else {
+    } else if (!this.classList.contains("disabled")){
     document.querySelector("#userGuess").value += this.value;
     }
 }
