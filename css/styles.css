@@ -97,7 +97,14 @@ footer {
 }
 
 #hangman {
+  display: block;
   margin: 2em auto;
+
+}
+@media only screen and (max-width: 1024px) and (orientation: landscape) {
+  #hangman {
+    height: 10em;
+  }
 }
 
 #gameBoard {
@@ -132,10 +139,9 @@ footer {
   font-size: 1.5em;
   font-weight: bold;
   text-align: center;
-  width: 2em;
-  height: 2em;
+  width: 1.3em;
+  height: 1.3em;
   margin-right:0.2em; 
-  padding-top: 0.35em;
  
 }
 .liLetterBoxes:after {
@@ -170,10 +176,14 @@ footer {
   width: 15em;
   height: 3em;
   margin: 2.8em 1em 2.8em 1em;
-  padding: 1em 1em;
+  padding: 1em 1em 1.1em 1em;
   text-align: center;
   cursor: pointer;
 
+}
+a {
+  text-decoration: none;
+  color: #666;
 }
 
 #message {

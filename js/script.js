@@ -13,17 +13,14 @@ let submitGuessBtn; // knapp som submitar användares gissning
 let numberOfCorrectLetters; //visar hur många korekta bokstäver anvädnaren har gissat
 let guessField;
 let listOfGuesses;
-let victoryMessage;
-let gameOverMessege;
-let errorMessage;
+let message;
 let gameBoard;
 let userInput;
-let myTimer;
 let selectedWordCopy;
 let uppercaseCopy;
 let liLetterBoxes;
 let userGuess;
-
+let activateTimer;
 // Funktion som körs då hela webbsidan är inladdad, dvs då all HTML-kod är utförd
 // Initiering av globala variabler samt koppling av funktioner till knapparna.
 function init() {
@@ -40,9 +37,8 @@ function init() {
     msgElem = document.querySelector('#message');
     letterButtons = document.querySelectorAll('#letterButtons li');
     guessField = document.querySelector('#guessField');
-    victoryMessage = document.createElement('p');
-    gameOverMessege = document.createElement('p');
-    errorMessage = document.createElement('p');
+    message = document.createElement('p');
+    msgElem.appendChild(message);
     gameBoard = document.querySelector('#gameBoard');
     startTime = document.querySelector('#timer');
     selectedWordCopy = "";
@@ -52,19 +48,18 @@ function init() {
 window.onload = init; // Se till att init aktiveras då sidan är inladdad
 
 function newGame() {
+    let myTimer;
     listOfGuesses = [];
     gameBoard.style.display = 'flex';
-    victoryMessage.innerHTML = "";
-    gameOverMessege.innerHTML = "";
-    errorMessage.innerHTML = ""; 
-    hangmanImg.src = './images/h0.png'; 
-    let activateTimer;
+    message.innerHTML = "";
+    hangmanImgNr = 0;
+    hangmanImg.src = './images/h' +hangmanImgNr + '.png'; 
     wordSelector();
     numberOfLetterBoxes();
-    resetLetterButtons()
+    resetLetterButtons();
     wordProcessing(); 
     clearInterval(activateTimer);
-    startTime.innerHTML ='Timer: 00:00:00';
+    startTime.innerHTML ='Time: 00:00:00';
     myTimer = new Timer(0,0,0,0,0,0);
     activateTimer = setInterval(myTimer.increment, 1000);
    
@@ -100,33 +95,18 @@ function numberOfLetterBoxes() {
 }// Funktionen som tar fram bokstävernas rutor, antal beror på vilket ord
 function wordProcessing() {
     let phraseSplit = [];
-
     if (/ /.test(selectedWord)) {
         phraseSplit = selectedWord.split(" ");
-
-        for (let j= 0; j< phraseSplit.length; j++) {
+        selectedWordCopy = ""; 
+        for (let j = 0; j < phraseSplit.length; j++) {
             selectedWordCopy += phraseSplit[j]; 
         }
+
     } else {
         selectedWordCopy = selectedWord;
     }
     uppercaseCopy = selectedWordCopy.toUpperCase();
 
-}
-
-function guessErrorHandeling() {
-    if (userGuess === "" || userGuess === " ") { 
-        errorMessage.innerHTML = "incorect guess, you have to type atlest one letter ,try a nother guess!";
-        msgElem.appendChild(errorMessage);
-        return;
-    }
-    for (let m = 0; m < listOfGuesses.length; m++) {
-        if (listOfGuesses[m] == userGuess) {
-            errorMessage.innerHTML = "incorect guess, you have alredy guessed this letter or phrase before, try a nother guess!";
-            msgElem.appendChild(errorMessage);
-            return;
-        }
-    }
 }
 
 function guessPreprocessing() {
@@ -136,10 +116,27 @@ function guessPreprocessing() {
     document.querySelector("#userGuess").value = "";
 }
 
+function guessError() {
+    if (userGuess === "" || userGuess === " ") { 
+        message.innerHTML = "incorect guess, you have to type atlest one letter ,try a nother guess!";
+        return false;
+    }
+    for (let m = 0; m <listOfGuesses.length; m++) {
+        if (listOfGuesses[m] == userGuess) {
+            message.innerHTML = "incorect guess, you have alredy guessed this letter or phrase before, try a nother guess!";
+            return false;
+        }
+    }
+    return true
+}
+
 function letterChecker() {
-    errorMessage.innerHTML = ""; 
-    guessPreprocessing();
-    guessErrorHandeling();
+    message.innerHTML = ""; 
+    guessPreprocessing(); 
+    if (!guessError()) {
+        guessError();
+        return 
+    }
     let guessIndex = uppercaseCopy.search(userGuess);
     let itsAMatch = false;
     if (userGuess.length == 1) {
@@ -184,16 +181,14 @@ function gameStateUpdate(itsAMatch) {
         if(hangmanImgNr <= 6) {
             hangmanImg.src = './images/h' + hangmanImgNr + '.png'; 
         } else {
-            clearInterval(myTimer);
-            errorMessage.innerHTML = "";
-            gameOverMessege.innerHTML = "Game Over :'(";
-            msgElem.appendChild(gameOverMessege);
+            clearInterval(activateTimer);
+            message.innerHTML = "Game Over :'(";
             gameBoard.style.display = 'none';
         }
-    } else if (itsAMatch && numberOfCorrectLetters >= selectedWordCopy.length) {
-        clearInterval(myTimer);
-        victoryMessage.innerHTML = "You gueess the corect word " + selectedWord + " that means you won!!! ";    
-        msgElem.appendChild(victoryMessage);
+    } else if (itsAMatch && numberOfCorrectLetters == selectedWordCopy.length) {
+        clearInterval(activateTimer);
+        hangmanImgNr = 0;
+        message.innerHTML = "You won! <br/> You guessed the corect word: <em>" + selectedWord + "</em> <br/>Number of guesses: " + listOfGuesses.length + " <br/>" + startTime.textContent +"<br/> Congratualtions!";    
         gameBoard.style.display = 'none';
     }
     
@@ -230,7 +225,7 @@ function Timer(s1,s2,m1,m2,h1,h2) {
             this.h2++;
             this.h1 = 0;
         }
-        startTime.innerHTML ='Timer: '+ this.h2 + this.h1 + ':' +this.m2 + this.m1 + ':'+ this.s2 + this.s1;
+        startTime.innerHTML ='Time: '+ this.h2 + this.h1 + ':' +this.m2 + this.m1 + ':'+ this.s2 + this.s1;
     }
     
 }

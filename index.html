@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Hangman</title>
     <link rel="stylesheet" type="text/css" href="css/styles.css">
-    <script type="text/javascript" src="js/script.js"></script>
+    <script type="text/javascript" src="lib/script.js"></script>
 </head>
 
 <body>
@@ -17,17 +17,31 @@
             <h2>Välkommen till spelet Hänga gubbe.</h2>
             <p>När du trycker på starta spelet, kommer datorn att välja ett ord slumpmässigt. <br/>
                Det kommer då dyka upp ett visst antal fält som motsvarar antalet bokstäver i ordet. <br/> 
-               Ditt mål är att gissa ordet genom att trycka på bokstavsknapparna.<br/>
-               För varje bokstav du gissar rätt, så fylls dyker det upp en bokstav i på den plats som bokstaven du gissade på motsvarar i ordet.
+               Ditt mål är att gissa ordet genom att skriva in den bokstav eller det ord du vill gissa på i input fältet och tycka på enter eller knappen brevid fälltet.<br/>
+               För varje bokstav du gissar rätt, så fylls dyker det upp en bokstav i på den plats som bokstaven du gissade på motsvarar i ordet. <br/>
+               Boxarna med bokstäver högst upp hjälper dig att hålla koll på vilka bokstäver du redan gissat på.
+
             </p>
-            <ul>
-                <li>Övriga regler</li>
-            </ul>
 
         </article>
-        <button class="btn btn--stripe" type="button" id="startGameBtn">Starta spelet</button>
+        <button class="btn btn--stripe" type="button" id="startGameBtn"><a href="#gameBoard">Starta spelet</a></button>
         <p id="timer"></p>
+        <section>
+            <img id="hangman" src="images/h0.png" alt="hangman">
+        </section>
+        <article id="message">
+            <!-- This is where messages should appear -->
+        </article>
         <section id="gameBoard">
+            <section id="letterBoxes">
+                <!-- This is where the matched letters should appear, these should match the number of -->
+                <ul>
+                </ul>
+            </section>
+            <section id="guessField">
+                <p><input id ="userGuess" type="text" placeholder="Type your guess here (letter or word)"/></p>
+                <button class="btn" id ="userGuessBtn">Place your guess!</button>
+            </section>
             <ul id="letterButtons">
                 <li class="btn btn--stripe" value="A">A</li>
                 <li class="btn btn--stripe" value="B">B</li>
@@ -55,26 +69,9 @@
                 <li class="btn btn--stripe" value="X">X</li>
                 <li class="btn btn--stripe" value="Y">Y</li>
                 <li class="btn btn--stripe" value="Z">Z</li>
-                <li class="btn btn--stripe" value="Å">Å</li>
-                <li class="btn btn--stripe" value="Ä">Ä</li>
-                <li class="btn btn--stripe" value="Ö">Ö</li>
             </ul>
-            <section id="letterBoxes">
-                <!-- This is where the matched letters should appear, these should match the number of -->
-                <ul>
-                </ul>
-            </section>
-            <section>
-            <img id="hangman" src="images/h0.png" alt="hangman">
-            </section>
-            <section id="guessField">
-                <p><input id ="userGuess" type="text" placeholder="Type your guess here (letter or word)"/></p>
-                <button class="btn" id ="userGuessBtn">Place your guess!</button>
-            </section>
         </section>
-        <article id="message">
-                <!-- This is where messages should appear -->
-        </article>
+        
         
     </main>
     <footer>
