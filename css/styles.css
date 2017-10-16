@@ -102,12 +102,14 @@ footer {
 #hangman {
   display: block;
   margin: 1em auto;
-  height: 10em
+  height: 10em;
+  filter: invert(100%);
 
 }
 @media only screen and (max-width: 1024px) and (orientation: landscape) {
   #hangman {
     height: 8em;
+  
   }
 }
 
