@@ -31,11 +31,14 @@ function init() {
     submitGuessBtn = document.querySelector("#userGuessBtn");
     submitGuessBtn.addEventListener('click', letterChecker);
     userInput = document.querySelector('#userGuess');
-    userInput.addEventListener('change',letterChecker);
+    userInput.addEventListener('keypress', function (event) {if (event.key === "Enter") {letterChecker()}});
     hangmanImg = document.querySelector('#hangman');
     hangmanImgNr = 0; 
     msgElem = document.querySelector('#message');
-    letterButtons = document.querySelectorAll('#letterButtons li');
+    letterButtons = document.querySelectorAll('#letterButtons li button');
+    for (let p = 0; p < letterButtons.length; p++) {
+        letterButtons[p].addEventListener('click',insertLetter);
+    } 
     guessField = document.querySelector('#guessField');
     message = document.createElement('p');
     msgElem.appendChild(message);
@@ -62,9 +65,6 @@ function newGame() {
     startTime.innerHTML ='Time: 00:00:00';
     myTimer = new Timer(0,0,0,0,0,0);
     activateTimer = setInterval(myTimer.increment, 1000);
-   
-    
-
 }// Funktion som startar spelet vid knapptryckning, och då tillkallas andra funktioner
 function resetLetterButtons() {
     for (let o = 0; o < letterButtons.length; o++) {
@@ -107,6 +107,16 @@ function wordProcessing() {
     }
     uppercaseCopy = selectedWordCopy.toUpperCase();
 
+}
+
+function insertLetter() {
+    if (this.value == "Delete") {
+    let toSave = document.querySelector("#userGuess").value;
+    toSave = toSave.substring(0,toSave.length-1);
+    document.querySelector("#userGuess").value = toSave;
+    } else {
+    document.querySelector("#userGuess").value += this.value;
+    }
 }
 
 function guessPreprocessing() {
