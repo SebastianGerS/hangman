@@ -22,7 +22,7 @@ let instructions; // reglerna för spelet
 let activateTimer; // setInterval som satt för timern
 // Funktion som körs då hela webbsidan är inladdad, dvs då all HTML-kod är utförd
 // Initiering av globala variabler samt koppling av funktioner till knapparna.
-function init() {
+const init = function() {
     startGameBtn = document.querySelector('#startGameBtn');
     letterBoxes = document.querySelector('#letterBoxes');
     wordList = ['Chas Academy', 'Programming','School','Student','Teacher','JavaScript','HyperText Markup Language','Cascading Style Sheets', 'Hypertext Preprocessor','Game of Thrones'];
@@ -48,14 +48,14 @@ function init() {
 
 window.onload = init; // Se till att init aktiveras då sidan är inladdad
 
-function newGame() {
+const newGame = function() {
     let myTimer; // sparar ny timer
+    hangmanImgNr = 0;
+    hangmanImg.src = `./images/h${hangmanImgNr}.png`; 
     instructions.style.display = "none";
     listOfGuesses = [];
     gameBoard.style.display = 'flex';
     message.innerHTML = "";
-    hangmanImgNr = 0;
-    hangmanImg.src = `./images/h${hangmanImgNr}.png`; 
     wordSelector();
     numberOfLetterBoxes();
     resetLetterButtons();
@@ -63,21 +63,21 @@ function newGame() {
     clearInterval(activateTimer);
     startTime.innerHTML = 'Time: 00:00:00';
     myTimer = new Timer(0);
-    activateTimer = setInterval(myTimer.increment, 100);
+    activateTimer = setInterval(myTimer.increment, 10);
 }// Funktion som startar spelet vid knapptryckning, och då tillkallas andra funktioner
-function resetLetterButtons() {
+const resetLetterButtons = function() {
     for (let o = 0; o < letterButtons.length; o++) {
         if(letterButtons[o].classList.contains('disabled')) {
             letterButtons[o].classList.remove('disabled');
         }
     }
 } //tar bort classen disabled från letterbuttons som har den klassen
-function wordSelector() {
+const wordSelector = function() {
     selectedWord = wordList[Math.floor(Math.random()*10)];
     numberOfCorrectLetters = 0;
 }// Funktion som slumpar fram ett ord
  
-function numberOfLetterBoxes() {
+const numberOfLetterBoxes = function() {
     while(letterBoxes.firstElementChild.firstChild) {
         letterBoxes.firstElementChild.removeChild(letterBoxes.firstElementChild.firstChild);
     }
@@ -92,7 +92,7 @@ function numberOfLetterBoxes() {
     }
     liLetterBoxes = document.querySelectorAll(".liLetterBoxes");
 }// Funktionen som tar fram bokstävernas rutor, antal beror på vilket längden på ordet
-function wordProcessing() {
+const wordProcessing = function() {
     let phraseSplit = [];
     if (/ /.test(selectedWord)) {
         phraseSplit = selectedWord.split(" ");
@@ -108,7 +108,7 @@ function wordProcessing() {
 
 } //sparar det valda ordet till två olika variabler till den första efter att whitespace har tagits bort och sedan till den andra när den gjorts om till uppercase
 
-function insertLetter() {
+const insertLetter = function() {
     if (this.value === "Delete") {
         let toSave = userInput.value;
         toSave = toSave.substring(0,toSave.length-1);
@@ -118,7 +118,7 @@ function insertLetter() {
     }
 } //funktion som sätter in den bokstav inputfältet (kopplad till letterbuttons eventlysnare)
 
-function guessPreprocessing() {
+const guessPreprocessing = function() {
     let guess = userInput.value;
     guess = guess.trim();
     guess = guess.toUpperCase();
@@ -126,7 +126,7 @@ function guessPreprocessing() {
     return guess;
 } //funktion som sparar värdet från den in skickade gissningen trimmar bort eventuelt whitespace och gör om inputen till uppercase och tömmer inputfältet  
 
-function guessError(userGuess) {
+const guessError = function (userGuess) {
     if (userGuess === "" || userGuess === " ") { 
         message.innerHTML = "incorect guess, you have to type atlest one letter ,try a nother guess!";
         return false;
@@ -140,7 +140,7 @@ function guessError(userGuess) {
     return true
 }
 
-function letterChecker(e) {
+const letterChecker= function(e) {
     e.preventDefault();
     message.innerHTML = ""; 
     let userGuess = guessPreprocessing(); 
@@ -185,19 +185,19 @@ function letterChecker(e) {
     gameStateUpdate(itsAMatch);
 } /// Funktion som körs när du trycker på bokstäverna och gissar bokstav
 
-function gameStateUpdate(itsAMatch) {
+const gameStateUpdate = function(itsAMatch) {
     if (!itsAMatch) {
         hangmanImgNr++;
-        if(hangmanImgNr <= 6) {
+        if(hangmanImgNr < 6) {
             hangmanImg.src = `./images/h${hangmanImgNr}.png`; 
         } else {
             clearInterval(activateTimer);
+            hangmanImg.src = `./images/h${hangmanImgNr}.png`; 
             message.innerHTML = `Game Over :'( <br/> the corect word was: ${selectedWord}`;
             gameBoard.style.display = 'none';
         }
     } else if (itsAMatch && numberOfCorrectLetters === selectedWordCopy.length) {
         clearInterval(activateTimer);
-        hangmanImgNr = 0;
         message.innerHTML = `You won! <br/> You guessed the corect word: <em> ${selectedWord} </em> <br/>Number of guesses: ${listOfGuesses.length} <br/> ${startTime.textContent} <br/> Congratualtions!`;    
         gameBoard.style.display = 'none';
     }
@@ -205,7 +205,7 @@ function gameStateUpdate(itsAMatch) {
 
 }// Funktionen som uppdaterar läget i spelat, gör olika saker beroende på om användares gissning var rätt eller fel
 
-function Timer(t) {
+const  Timer = function(t) {
     this.ms1 = t;
     this.ms2 = t;
     this.s1 = t;

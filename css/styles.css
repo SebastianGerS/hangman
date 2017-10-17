@@ -1,15 +1,27 @@
 @charset "UTF-8";
 
+@font-face {
+  font-family: VT323;
+  src: url(../fonts/vt323-regular.woff2) format('woff2'),
+  url(../fonts/vt323-regular.woff) format('woff'),
+  url(../fonts/vt323-regular.ttf) format('truetype'),
+  url(../fonts/vt323-regular.eot) format('eot');
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
+*:focus {
+  outline: 7px auto silver;
+}
+
 body {
   color: #9CBF00;
   background-color: black;
-  font-family: sans-serif;
+  font-family: VT323, Courier New, Courier, monospace;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -63,6 +75,7 @@ main > article {
   align-items: center;
   text-align: center;
   line-height: 1.5;
+  font-size: 1.25em;
 }
 
 main > article > button {
@@ -87,14 +100,14 @@ footer {
   padding-top: 30px;
   padding-bottom:10px;
   color: #9CBF00;
-  font-size: 1.25em;
+  font-size: 1.5em;
   width: 100%;
   flex: none;
   text-align: center;
 }
 
 #startGameBtn {
-  font-size: 1.5em;
+  font-size: 2em;
   margin-left:auto;
   margin-right:auto;
 }
@@ -131,6 +144,7 @@ footer {
 #letterButtons li button:not(last-child) {
   margin: 4px 4px;
   min-width: 2.5em;
+  font-size: 3em;
 }
 
 @media only screen and (max-device-width: 420px) and (orientation: portrait) {
@@ -144,6 +158,14 @@ footer {
 
 }
 
+#timer {
+  display: block;
+  margin: 1em auto;
+  text-align: center;
+  font-size: 1.5em;
+
+}
+
 #letterBoxes {
   display: block;
   margin-top: 1em;
@@ -153,7 +175,7 @@ footer {
   justify-content: center;
   border: 1px solid #C6F200;
   color: #9CBF00;
-  font-size: 1.5em;
+  font-size: 1.75em;
   font-weight: bold;
   text-align: center;
   width: 1.5em;
@@ -190,22 +212,23 @@ footer {
   height: 6em;
 
 }
+#guessField input::placeholder {
+  color:#C6F200;
+  font-family: VT323,Courier New, Courier, monospace;
+
+}
 #userGuess {
   border: 1px solid #C6F200;
   color: #C6F200;
   background-color: #9CBF00;
   font-size: 1.5em;
   font-weight: bold;
-  line-height: 2em;
+  line-height: 1em;
   margin-top: 1em;
   padding: 1em 0.5em;
   text-align: center;
   width: 19em;
   height: 2em;
-}
-
-#guessGuess::placeholder {
-  color:#C6F200;
 }
 
 #userGuessBtn {
