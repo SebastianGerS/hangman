@@ -102,16 +102,16 @@ footer {
 #hangman {
   display: block;
   margin: 1em auto;
-  height: 10em;
   filter: invert(100%);
 
 }
-@media only screen and (max-width: 1024px) and (orientation: landscape) {
-  #hangman {
-    height: 8em;
+@media only screen and (max-device-width: 1020px) and (orientation: landscape) {
+  
+    #hangman {
+      height: 10em;
+    }
   
   }
-}
 
 #gameBoard {
   padding: 0.3em 0;
@@ -128,12 +128,22 @@ footer {
   align-items: center;
 }
 
-#letterButtons li:not(last-child) {
+#letterButtons li button:not(last-child) {
   margin: 4px 4px;
   min-width: 2.5em;
 }
 
+@media only screen and (max-device-width: 420px) and (orientation: portrait) {
+
+  #letterButtons li button:not(last-child) {
+    min-width: 5em;
+    min-height: 3em;
+    font-size: 2em;
+  }
+
+
 }
+
 #letterBoxes {
   display: block;
   margin-top: 1em;
@@ -152,6 +162,15 @@ footer {
   padding-top:0.15em
  
 }
+@media only screen and (max-device-width: 740px) {
+  
+    .liLetterBoxes {
+      width: 1.3em;
+      height: 1.3em;
+      padding-top: 0;
+    }
+  
+  }
 .liLetterBoxes:after {
   content: "\00a0";
 }
@@ -168,10 +187,10 @@ footer {
 
 #guessField {
   display:inline-flex;
-  height: 7.5em;
+  height: 6em;
 
 }
-#guessField input {
+#userGuess {
   border: 1px solid #C6F200;
   color: #C6F200;
   background-color: #9CBF00;
@@ -179,23 +198,34 @@ footer {
   font-weight: bold;
   line-height: 2em;
   margin-top: 1em;
-  padding: 1.5em 0.5em;
+  padding: 1em 0.5em;
   text-align: center;
   width: 19em;
-  height: 3em;
+  height: 2em;
 }
-#guessField input::placeholder {
+
+#guessGuess::placeholder {
   color:#C6F200;
 }
 
 #userGuessBtn {
   width: 14em;
-  height: 2.5em;
-  margin: 1.25em 1em 2.8em 1em;
-  padding: 0.6em 1em 1.1em 1em;
+  height: 2em;
+  margin: 2em 1em 2.8em 1em;
+  padding: 0.15em 1em 1.1em 1em;
   text-align: center;
-
+  font-size: 1em;
 }
+@media only screen and (max-device-width: 740px) {
+  
+  #userGuessBtn {
+    height: 2.2em;
+    margin: 1em 1em 2.8em 1em;
+    padding: 0.25em 1em 1.1em 1em;
+    font-size: 1.5em;
+  }
+  
+  }
 a {
   text-decoration: none;
   color: #9CBF00;

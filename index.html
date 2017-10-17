@@ -13,7 +13,7 @@
         <h1>Uppgift 04 - Hangman</h1>
     </header>
     <main>
-        <article>
+        <article id="instructions">
             <h2>Välkommen till spelet Hänga gubbe.</h2>
             <p>När du trycker på starta spelet, kommer datorn att välja ett ord slumpmässigt. <br/>
                Det kommer då dyka upp ett visst antal fält som motsvarar antalet bokstäver i ordet. <br/> 
@@ -38,9 +38,11 @@
                 <ul>
                 </ul>
             </section>
-            <section id="guessField">
-                <input id ="userGuess" type="text" placeholder="Type your guess here (letter or word)"/>
-                <button class="btn btn--stripe" id ="userGuessBtn">Place your guess!</button>
+            <section>
+                <form id="guessField" autocomplete="off">
+                    <input id="userGuess" type="text" placeholder="Type your guess here (letter or word)"/>
+                    <button class="btn btn--stripe" id ="userGuessBtn" type ="submit"/>Place your guess!</button>
+                </form>
             </section>
             <ul id="letterButtons">
                 <li><button class="btn btn--stripe" value="A">A</button></li>
