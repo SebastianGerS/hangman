@@ -141,22 +141,27 @@ footer {
   align-items: center;
 }
 
-#letterButtons li button:not(last-child) {
+#letterButtons li button {
   margin: 4px 4px;
   min-width: 2.5em;
-  font-size: 3em;
+  font-size: 2.5em;
+}
+
+#letterButtons li:last-of-type button {
+  max-height: 1.9em;
+  padding-top:0.15em;
 }
 
 @media only screen and (max-device-width: 420px) and (orientation: portrait) {
 
-  #letterButtons li button:not(last-child) {
+  #letterButtons li button {
     min-width: 5em;
     min-height: 3em;
     font-size: 2em;
   }
-
-
 }
+
+
 
 #timer {
   display: block;
@@ -190,6 +195,10 @@ footer {
       width: 1.3em;
       height: 1.3em;
       padding-top: 0;
+    }
+    #letterButtons li:last-of-type button {
+      max-height: none;
+      padding-top: 0.15em;
     }
   
   }
