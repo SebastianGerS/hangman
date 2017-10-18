@@ -218,9 +218,18 @@ footer {
 
 #guessField {
   display:inline-flex;
-  height: 6em;
+  height: 7em;
+
 
 }
+
+#guessField input {
+  color:#C6F200;
+  font-family: VT323,Courier New, Courier, monospace;
+  font-size: 2em;
+}
+
+
 #guessField input::placeholder {
   color:#C6F200;
   font-family: VT323,Courier New, Courier, monospace;
@@ -234,7 +243,7 @@ footer {
   font-weight: bold;
   line-height: 1em;
   margin-top: 1em;
-  padding: 1em 0.5em;
+  padding: 0 0.5em;
   text-align: center;
   width: 19em;
   height: 2em;
@@ -243,7 +252,7 @@ footer {
 #userGuessBtn {
   width: 14em;
   height: 2em;
-  margin: 2em 1em 2.8em 1em;
+  margin: 3em 1em 2.8em 1em;
   padding: 0.15em 1em 1.1em 1em;
   text-align: center;
   font-size: 1em;
