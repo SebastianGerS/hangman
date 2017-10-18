@@ -149,7 +149,18 @@ footer {
 
 #letterButtons li:last-of-type button {
   max-height: 1.9em;
-  padding-top:0.15em;
+  /*padding-top:0.15em;*/
+  display: inline-flex;
+  justify-content: center;
+  line-height: 1em;
+  
+
+}
+#letterButtons li:last-of-type button::before {
+  content: "⌫";
+ line-height: 1.15em;
+ padding-right: 0.5em;
+  
 }
 
 @media only screen and (max-device-width: 420px) and (orientation: portrait) {
@@ -158,6 +169,7 @@ footer {
     min-width: 5em;
     min-height: 3em;
     font-size: 2em;
+    margin: 10px 4px;
   }
 }
 
@@ -198,7 +210,6 @@ footer {
     }
     #letterButtons li:last-of-type button {
       max-height: none;
-      padding-top: 0.15em;
     }
   
   }
@@ -207,6 +218,7 @@ footer {
 }
 .corect-letter {
   background-color: #CEFC00;
+  transition: 2s;
 }
 .corect-letter:after {
   content: "";
@@ -297,6 +309,7 @@ a {
   text-decoration: none;
   text-transform: uppercase;
   cursor: pointer;
+  
 }
 
 .btn::-moz-focus-inner {
@@ -341,6 +354,7 @@ a {
   background-color: #9CBF00;
   color: #CEFC00;
   border-color: #9CBF00;
+  transition: 1.3s;
 }
 
 .disabled:after, {

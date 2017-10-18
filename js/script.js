@@ -201,41 +201,27 @@ const gameStateUpdate = function(itsAMatch) {
         message.innerHTML = `You won! <br/> You guessed the corect word: <em> ${selectedWord} </em> <br/>Number of guesses: ${listOfGuesses.length} <br/> ${startTime.textContent} <br/> Congratualtions!`;    
         gameBoard.style.display = 'none';
     }
-    
 
 }// Funktionen som uppdaterar läget i spelat, gör olika saker beroende på om användares gissning var rätt eller fel
 
 const  Timer = function(t) {
-    this.ms1 = t;
-    this.ms2 = t;
-    this.s1 = t;
-    this.s2 = t;
-    this.m1 = t;
-    this.m2 = t;
+    this.ms = t;
+    this.s = t;
+    this.m = t;
+
 
     this.increment = () => {
-            this.ms1++;
-        if (this.ms1 ==  10) {
-            this.ms2++;
-            this.ms1 = 0;    
+            this.ms++;
+
+        if (this.ms ==  100) {
+            this.s++;
+            this.ms = 0;    
         } 
-        if (this.ms2 == 6) {
-            this.s1++;
-            this.ms2 = 0;
+        if (this.s == 60) {
+            this.m++;
+            this.s = 0;
         }
-        if (this.s1 == 10) {
-            this.s2++;
-            this.s1 = 0;
-        }
-        if (this.s2 == 6) {
-            this.m1++;
-            this.s2 = 0;
-        }
-        if (this.m1 == 10) {
-            this.m2++;
-            this.m1 = 0;
-        }
-        startTime.innerHTML =`Time: ${this.m2}${this.m1}:${this.s2}${this.s1}:${this.ms2}${this.ms1}`;
+        startTime.innerHTML =`Time: ${this.m}:${this.s}:${this.ms}`;
     }
     
 }
