@@ -15,12 +15,16 @@
     <main>
         <article id="instructions">
             <h2>Welcome to the game of Hangman</h2>
-            <p>När du trycker på starta spelet, kommer datorn att välja ett ord slumpmässigt. <br/>
-               Det kommer då dyka upp ett visst antal fält som motsvarar antalet bokstäver i ordet. <br/> 
-               Ditt mål är att gissa ordet genom att skriva in den bokstav eller det ord du vill gissa på i text-fältet och tycka på enter eller knappen brevid fälltet.<br/>
-               För varje bokstav du gissar rätt, så fylls dyker det upp en bokstav i på den plats som bokstaven du gissade på motsvarar i ordet. <br/>
-               Boxarna med bokstäver högst upp hjälper dig att hålla koll på vilka bokstäver du redan gissat på och du kan även klicka på dem för att mata in bokstäver i text-fältet.
-
+            <p>When you push the <em>Start Game</em>, the computer will select a random word or phrase. <br/>
+               A row of boxes will then appear (one for each letter in the selected word(s)) <br/><br/> 
+               Your goal is to guess what word has been selected, <br/>
+               you do this by clicking on the text input field and then typing the letter you want to guess on, <br/> 
+               followed by pressing <em>enter</em> or hitting the <em>Submit your guess</em> button. <br/><br/>
+               You can also type in the inputfield by clicking the letterbuttons in the game, this sends the input to the inputfield<br/>
+               For every letter you guess the corresponding letterbutton will be highlighted and disabled to help you keep track of your guesses if the guess is correct the letter will apper in the coresponding box above <br/><br/>
+               Note that it's also possible to guess on a complet word or phrase, but because letterbuttons become disabled you need to use your native keyboard if you already have one or more correct letters.<br/><br/>
+               You have a maximum of 5 incorrect guesses before you hang &#128520;<br/>
+               Good luck!
             </p>
 
         </article>
@@ -40,7 +44,7 @@
             </section>
             <section>
                 <form id="guessField" autocomplete="off">
-                    <input id="userGuess" type="text" placeholder="Type your guess here (letter or word)"/>
+                    <input id="userGuess" type="text" placeholder="Type your guess here!"/>
                     <button class="btn btn--stripe" id ="userGuessBtn" type ="submit"/>Place your guess!</button>
                 </form>
             </section>

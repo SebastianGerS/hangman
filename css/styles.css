@@ -12,6 +12,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  transition: 1.3s;
 }
 
 *:focus {
@@ -55,6 +56,7 @@ header h1 {
 main {
   flex: 1;
   padding: 1.5em;
+  width: 100%;
 }
 
 main:after {
@@ -66,7 +68,7 @@ main:after {
 }
 
 main > article {
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   padding: 1.5em;
   -webkit-box-align: center;
@@ -75,9 +77,14 @@ main > article {
   align-items: center;
   text-align: center;
   line-height: 1.5;
-  font-size: 1.25em;
+  font-size: 1.5em;  
 }
 
+@media only screen and (max-device-width:420px) {
+  main > article {
+    font-size: 2.5em;
+  }
+}
 main > article > button {
   align-content: center;
   justify-content: center;
@@ -127,10 +134,11 @@ footer {
   }
 
 #gameBoard {
-  padding: 0.3em 0;
+  padding: 0.3em;
   display:none;
   flex-direction:column;
   align-items: center;
+  width:100%;
 }
 
 #letterButtons {
@@ -145,74 +153,76 @@ footer {
   margin: 4px 4px;
   min-width: 2.5em;
   font-size: 2.5em;
+  padding: 0.1em 0.2em 0.3em 0.2em;
 }
 
 #letterButtons li:last-of-type button {
   max-height: 1.9em;
-  /*padding-top:0.15em;*/
   display: inline-flex;
   justify-content: center;
   line-height: 1em;
-  
-
+  padding-bottom:  0.2em;
 }
+
 #letterButtons li:last-of-type button::before {
   content: "⌫";
- line-height: 1.15em;
- padding-right: 0.5em;
+  line-height: 1.15em;
+  padding-right: 0.5em;
   
 }
 
 @media only screen and (max-device-width: 420px) and (orientation: portrait) {
 
   #letterButtons li button {
-    min-width: 5em;
-    min-height: 3em;
-    font-size: 2em;
+    min-width: 2.5em;
+    min-height: 1.5em;
+    font-size: 4em;
     margin: 10px 4px;
   }
+
 }
-
-
 
 #timer {
   display: block;
-  margin: 1em auto;
+  margin: 1em 0;
   text-align: center;
   font-size: 1.5em;
-
 }
 
 #letterBoxes {
   display: block;
   margin-top: 1em;
 }
+
 .liLetterBoxes {
   display: inline-flex;
   justify-content: center;
   border: 1px solid #C6F200;
   color: #9CBF00;
-  font-size: 1.75em;
+  font-size: 1.9em;
   font-weight: bold;
   text-align: center;
   width: 1.5em;
   height: 1.5em;
   margin-right:0.2em; 
-  padding-top:0.15em
- 
+  align-items: center;
 }
-@media only screen and (max-device-width: 740px) {
-  
-    .liLetterBoxes {
-      width: 1.3em;
-      height: 1.3em;
-      padding-top: 0;
-    }
-    #letterButtons li:last-of-type button {
-      max-height: none;
-    }
-  
+
+@media only screen and (max-device-width: 740px) and (orientation: landscape) {
+  #letterButtons li button {
+    max-height: 2em;
+    margin: 10px 4px;
   }
+}
+
+@media only screen and (max-device-width: 740px) {    
+  .liLetterBoxes {
+    width: 1em;
+    height: 1em;
+    padding-bottom: 0.4em;
+  }
+}
+
 .liLetterBoxes:after {
   content: "\00a0";
 }
@@ -231,8 +241,7 @@ footer {
 #guessField {
   display:inline-flex;
   height: 7em;
-
-
+  justify-content: center;
 }
 
 #guessField input {
@@ -241,12 +250,11 @@ footer {
   font-size: 2em;
 }
 
-
 #guessField input::placeholder {
   color:#C6F200;
   font-family: VT323,Courier New, Courier, monospace;
-
 }
+
 #userGuess {
   border: 1px solid #C6F200;
   color: #C6F200;
@@ -255,9 +263,10 @@ footer {
   font-weight: bold;
   line-height: 1em;
   margin-top: 1em;
+  margin-left:1em;
   padding: 0 0.5em;
   text-align: center;
-  width: 19em;
+  width: 17em;
   height: 2em;
 }
 
@@ -269,24 +278,36 @@ footer {
   text-align: center;
   font-size: 1em;
 }
+
 @media only screen and (max-device-width: 740px) {
-  
+
+  #userGuess {
+    padding: 0 0.2em;
+    width: 16em;
+    height: 2.3em;
+    margin-top:0.9em;
+  }
+
   #userGuessBtn {
-    height: 2.2em;
-    margin: 1em 1em 2.8em 1em;
-    padding: 0.25em 1em 1.1em 1em;
-    font-size: 1.5em;
-  }
-  
-  }
+    height: 1em;
+    width: 7.6em;
+    margin: 0.6em 1em 2.8em 0.5em;
+    padding: 0 0 1.4em 0;
+    font-size: 3em;
+  } 
+
+}
+
 a {
   text-decoration: none;
   color: #9CBF00;
 }
 
-#message {
+#message{
   padding: 0;
   font-size: 1.5em;
+  display: block;
+  margin: 0 auto;
 }
 
 .btn {
@@ -309,7 +330,6 @@ a {
   text-decoration: none;
   text-transform: uppercase;
   cursor: pointer;
-  
 }
 
 .btn::-moz-focus-inner {
