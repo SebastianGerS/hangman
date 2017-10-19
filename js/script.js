@@ -95,8 +95,8 @@ const numberOfLetterBoxes = function() {
 }// Funktionen som tar fram bokstävernas rutor, antal beror på vilket längden på ordet
 
 const wordProcessing = function() {
-    let phraseSplit = [];
     if (/ /.test(selectedWord)) {
+        let phraseSplit = [];
         phraseSplit = selectedWord.split(" ");
         selectedWordCopy = ""; 
         for (let j = 0; j < phraseSplit.length; j++) {
@@ -125,6 +125,14 @@ const guessPreprocessing = function() {
     guess = guess.trim();
     guess = guess.toUpperCase();
     userInput.value = "";
+    if (/ /.test(guess)) {
+        let phraseSplit = [];
+        phraseSplit = guess.split(" ");
+        guess = ""; 
+        for (let p = 0; p < phraseSplit.length; p++) {
+            guess += phraseSplit[p]; 
+        }
+    } 
     return guess;
 } //funktion som sparar värdet från den in skickade gissningen trimmar bort eventuelt whitespace och gör om inputen till uppercase och tömmer inputfältet  
 
