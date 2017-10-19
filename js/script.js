@@ -9,7 +9,7 @@ let msgElem; // Ger meddelande när spelet är över
 let message; // p ellement som apendas till msgElem
 let startGameBtn; // Knappen du startar spelet med
 let letterButtons; // Knapparna för bokstäverna
-let startTime; // Mäter tiden
+let gameClock; // Mäter tiden
 let guessField; // knapp som submitar användares gissning
 let numberOfCorrectLetters; //visar hur många korekta bokstäver anvädnaren har gissat
 let listOfGuesses;//lista på de gissade orden/bokstäverna
@@ -40,7 +40,7 @@ const init = function() {
     message = document.createElement('p');
     msgElem.appendChild(message);
     gameBoard = document.querySelector('#gameBoard');
-    startTime = document.querySelector('#timer');
+    gameClock = document.querySelector('#timer');
     selectedWordCopy = "";
     uppercaseCopy = "";
     instructions = document.querySelector('#instructions');
@@ -61,10 +61,10 @@ const newGame = function() {
     resetLetterButtons();
     wordProcessing(); 
     clearInterval(activateTimer);
-    startTime.innerHTML = 'Time: 00:00:00';
-    myTimer = new Timer(0);
+    myTimer = new Timer(0,gameClock);
     activateTimer = setInterval(myTimer.increment, 10);
 }// Funktion som startar spelet vid knapptryckning, och då tillkallas andra funktioner
+
 const resetLetterButtons = function() {
     for (let o = 0; o < letterButtons.length; o++) {
         if(letterButtons[o].classList.contains('disabled')) {
@@ -72,6 +72,7 @@ const resetLetterButtons = function() {
         }
     }
 } //tar bort classen disabled från letterbuttons som har den klassen
+
 const wordSelector = function() {
     selectedWord = wordList[Math.floor(Math.random()*10)];
     numberOfCorrectLetters = 0;
@@ -92,6 +93,7 @@ const numberOfLetterBoxes = function() {
     }
     liLetterBoxes = document.querySelectorAll(".liLetterBoxes");
 }// Funktionen som tar fram bokstävernas rutor, antal beror på vilket längden på ordet
+
 const wordProcessing = function() {
     let phraseSplit = [];
     if (/ /.test(selectedWord)) {
@@ -193,35 +195,54 @@ const gameStateUpdate = function(itsAMatch) {
         } else {
             clearInterval(activateTimer);
             hangmanImg.src = `./images/h${hangmanImgNr}.png`; 
-            message.innerHTML = `Game Over :'( <br/> the corect word was: ${selectedWord}`;
+            message.innerHTML = `You Dead &#128520; <br/> the corect word was: <em> ${selectedWord}<em>`;
             gameBoard.style.display = 'none';
         }
     } else if (itsAMatch && numberOfCorrectLetters === selectedWordCopy.length) {
         clearInterval(activateTimer);
-        message.innerHTML = `You won! <br/> You guessed the corect word: <em> ${selectedWord} </em> <br/>Number of guesses: ${listOfGuesses.length} <br/> ${startTime.textContent} <br/> Congratualtions!`;    
+        message.innerHTML = `You won! <br/> You guessed the corect word: <em> ${selectedWord} </em> <br/>Number of guesses: ${listOfGuesses.length} <br/> ${gameClock.textContent} <br/> Congratualtions!`;    
         gameBoard.style.display = 'none';
     }
 
 }// Funktionen som uppdaterar läget i spelat, gör olika saker beroende på om användares gissning var rätt eller fel
 
-const  Timer = function(t) {
-    this.ms = t;
-    this.s = t;
-    this.m = t;
-
+const  Timer = function(t, timer) {
+    this.ms1 = t;
+    this.ms2 = t;
+    this.s1 = t;
+    this.s2 = t;
+    this.m1 = t;
+    this.m2 = t;
+    this.timer = timer;
 
     this.increment = () => {
-            this.ms++;
 
-        if (this.ms ==  100) {
-            this.s++;
-            this.ms = 0;    
+        this.ms1++;
+
+        if (this.ms1 ===  10) {
+            this.ms2++;
+            this.ms1 = 0;  
+            if (this.ms2 ===  10) {
+                this.s1++;
+                this.ms2 = 0;
+                if (this.s1 ===  10) {
+                    this.s2++;
+                    this.s1 = 0; 
+                    if (this.s2 ===  6) {
+                        this.m1++;
+                        this.s2 = 0; 
+                        if(this.m1 === 10) {
+                            this.m2++;
+                            this.m1 = 0;
+                        }    
+                    }    
+                }    
+            }   
         } 
-        if (this.s == 60) {
-            this.m++;
-            this.s = 0;
-        }
-        startTime.innerHTML =`Time: ${this.m}:${this.s}:${this.ms}`;
+
+        this.timer.innerHTML = `Time: ${this.m2}${this.m1}:${this.s2}${this.s1}:${this.ms2}${this.ms1}`; 
+           
+            
     }
     
 }
