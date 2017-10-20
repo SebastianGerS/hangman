@@ -20,6 +20,7 @@ let uppercaseCopy; // kopia av selectedword utan whitespace och med stora bokst�
 let liLetterBoxes; // array med alla liLetterBoxes
 let instructions; // reglerna för spelet
 let activateTimer; // setInterval som satt för timern
+let overrideCheckbox;
 // Funktion som körs då hela webbsidan är inladdad, dvs då all HTML-kod är utförd
 // Initiering av globala variabler samt koppling av funktioner till knapparna.
 const init = function() {
@@ -44,6 +45,8 @@ const init = function() {
     selectedWordCopy = "";
     uppercaseCopy = "";
     instructions = document.querySelector('#instructions');
+    overrideCheckbox = document.querySelector('#overrideCheckbox');
+    overrideCheckbox.addEventListener('change',overrideDisable);
 } // End init
 
 window.onload = init; // Se till att init aktiveras då sidan är inladdad
@@ -61,7 +64,7 @@ const newGame = function() {
     resetLetterButtons();
     wordProcessing(); 
     clearInterval(activateTimer);
-    myTimer = new Timer(0,gameClock);
+    myTimer = new Timer(gameClock);
     activateTimer = setInterval(myTimer.increment, 10);
 }// Funktion som startar spelet vid knapptryckning, och då tillkallas andra funktioner
 
@@ -115,7 +118,7 @@ const insertLetter = function() {
         let toSave = userInput.value;
         toSave = toSave.substring(0,toSave.length-1);
         userInput.value = toSave; // tar bort en bokstav från input fältet om knapen man dryckt på har värdet Delete
-    } else if (!this.classList.contains("disabled")){
+    } else if (!this.classList.contains("disabled")||this.classList.contains("override")){
         userInput.value += this.value; // kollar om knappen har klassen diabled och om inte så sätts värdet i knappen in i inputfältet
     }
 } //funktion som sätter in den bokstav inputfältet (kopplad till letterbuttons eventlysnare)
@@ -185,16 +188,27 @@ const letterChecker= function(e) {
         }
 
     }
-    
+
+    disableLetterButtons(userGuess);
+    listOfGuesses.push(userGuess);
+    gameStateUpdate(itsAMatch);
+} /// Funktion som körs när du trycker på bokstäverna och gissar bokstav
+const disableLetterButtons = function (userGuess) {
     for (let n = 0; n < letterButtons.length; n++) {
         if(letterButtons[n].textContent === userGuess) {
             letterButtons[n].classList.add('disabled');
         }
     }
-    listOfGuesses.push(userGuess);
-    gameStateUpdate(itsAMatch);
-} /// Funktion som körs när du trycker på bokstäverna och gissar bokstav
-
+}
+const overrideDisable = function() {
+    for (let q = 0; q < letterButtons.length; q++) {
+        if(!letterButtons[q].classList.contains('override'))
+            letterButtons[q].classList.add('override');
+        else {
+            letterButtons[q].classList.remove('override');
+        }
+    }
+}
 const gameStateUpdate = function(itsAMatch) {
     if (!itsAMatch) {
         hangmanImgNr++;
@@ -214,43 +228,34 @@ const gameStateUpdate = function(itsAMatch) {
 
 }// Funktionen som uppdaterar läget i spelat, gör olika saker beroende på om användares gissning var rätt eller fel
 
-const  Timer = function(t, timer) {
-    this.ms1 = t;
-    this.ms2 = t;
-    this.s1 = t;
-    this.s2 = t;
-    this.m1 = t;
-    this.m2 = t;
+const  Timer = function(timer, ms,s,m) {
+    this.ms = ms || 0;
+    this.s = s || 0;
+    this.m = m || 0;
     this.timer = timer;
 
     this.increment = () => {
 
-        this.ms1++;
+        this.ms++;
 
-        if (this.ms1 ===  10) {
-            this.ms2++;
-            this.ms1 = 0;  
-            if (this.ms2 ===  10) {
-                this.s1++;
-                this.ms2 = 0;
-                if (this.s1 ===  10) {
-                    this.s2++;
-                    this.s1 = 0; 
-                    if (this.s2 ===  6) {
-                        this.m1++;
-                        this.s2 = 0; 
-                        if(this.m1 === 10) {
-                            this.m2++;
-                            this.m1 = 0;
-                        }    
-                    }    
-                }    
+        if (this.ms ===  100) {
+            this.s++;
+            this.ms = 0;  
+            if (this.s ===  60) {
+                this.m++;
+                this.s = 0;
             }   
         } 
 
-        this.timer.innerHTML = `Time: ${this.m2}${this.m1}:${this.s2}${this.s1}:${this.ms2}${this.ms1}`; 
-           
-            
+        this.timer.innerHTML = `Time: ${this.getMinutes()}:${this.getSeconds()}:${this.getMilliSeconds()}`;    
     }
-    
+    this.getMilliSeconds = () => {
+        return this.ms < 10 ? `0${this.ms}` : this.ms;
+    }
+    this.getSeconds = () => {
+        return this.s < 10 ? `0${this.s}` : this.s;
+    }
+    this.getMinutes= () => {
+        return this.m < 10 ? `0${this.m}` : this.m;
+    }
 }

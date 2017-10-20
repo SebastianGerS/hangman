@@ -215,7 +215,7 @@ footer {
   }
 }
 
-@media only screen and (max-device-width: 740px) {    
+@media only screen and (max-device-width: 1366px) and (-webkit-min-device-pixel-ratio: 2) {    
   .liLetterBoxes {
     width: 1em;
     height: 1em;
@@ -277,6 +277,9 @@ footer {
   padding: 0.15em 1em 1.1em 1em;
   text-align: center;
   font-size: 1em;
+}
+#overrideCheckbox {
+  margin-top:1.7em;
 }
 
 @media only screen and (max-device-width: 740px) {
