@@ -22,7 +22,7 @@
 body {
   color: #9CBF00;
   background-color: black;
-  font-family: VT323, Courier New, Courier, monospace;
+  font-family: VT323, "Courier New", Courier, monospace;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -125,8 +125,8 @@ footer {
   filter: invert(100%);
 
 }
+
 @media only screen and (max-device-width: 1020px) and (orientation: landscape) {
-  
     #hangman {
       height: 10em;
     }
@@ -168,11 +168,9 @@ footer {
   content: "⌫";
   line-height: 1.15em;
   padding-right: 0.5em;
-  
 }
 
 @media only screen and (max-device-width: 420px) and (orientation: portrait) {
-
   #letterButtons li button {
     min-width: 2.5em;
     min-height: 1.5em;
@@ -226,9 +224,11 @@ footer {
 .liLetterBoxes:after {
   content: "\00a0";
 }
+
 .box-checked {
   background-color: #CEFC00;
 }
+
 .box-checked:after {
   content: "";
 }
@@ -245,13 +245,13 @@ footer {
 
 #guessField input {
   color:#C6F200;
-  font-family: VT323,Courier New, Courier, monospace;
+  font-family: VT323,"Courier New", Courier, monospace;
   font-size: 2em;
 }
 
 #guessField input::placeholder {
   color:#C6F200;
-  font-family: VT323,Courier New, Courier, monospace;
+  font-family: VT323,"Courier New", Courier, monospace;
 }
 
 #userGuess {
@@ -294,11 +294,9 @@ label {
   align-items: center;
   justify-content: center;
   font-size:2em;
-  
 }
 
 @media only screen and (max-device-width: 740px) {
-
   #userGuess {
     padding: 0 0.2em;
     width: 16em;
@@ -313,11 +311,11 @@ label {
     padding: 0 0 1.4em 0;
     font-size: 3em;
   } 
+
   #overrideCheckbox {
     width:4em;
     height:4em;
   }
-
 }
 
 a {
@@ -395,26 +393,9 @@ a {
 .disabled {
   background-color: #9CBF00;
   color: #CEFC00;
-  border-color: #9CBF00;
+  border-color: #C6F200;
 }
 
-.disabled:after, {
-  background-image: -webkit-repeating-linear-gradient(
-    45deg,
-    #fff,
-    #fff 1px,
-    transparent 2px,
-    transparent 5px
-  );
-  background-image: repeating-linear-gradient(
-    45deg,
-    #fff,
-    #fff 1px,
-    transparent 2px,
-    transparent 5px
-  );
-  border-top: 1px solid #000;
-}
 .override {
   background-color: black;
   color:#9CBF00;

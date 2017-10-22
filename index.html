@@ -1,96 +1,90 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <meta charset="UTF-8">
-    <title>Hangman</title>
-    <link rel="stylesheet" type="text/css" href="css/styles.css">
-    <script type="text/javascript" src="lib/script.js"></script>
-</head>
-
-<body>
-    <header>
-        <h1>Uppgift 04 - Hangman</h1>
-    </header>
-    <main>
-        <article id="instructions">
-            <h2>Welcome to the game of Hangman</h2>
-            <p>When you push the <em>Start Game</em>, the computer will select a random word or phrase. <br/>
-               A row of boxes will then appear (one for each letter in the selected word(s)) <br/><br/> 
-               Your goal is to guess what word has been selected, <br/>
-               you do this by clicking on the text input field and then typing the letter you want to guess on, <br/> 
-               followed by pressing <em>enter</em> or hitting the <em>Submit your guess</em> button. <br/><br/>
-               You can also type in the inputfield by clicking the letterbuttons in the game, this sends the input to the inputfield<br/>
-               For every letter you guess the corresponding letterbutton will be highlighted and disabled to help you keep track of your guesses if the guess is correct the letter will apper in the coresponding box above <br/><br/>
-               You have a maximum of 5 incorrect guesses before you hang &#128520;<br/>
-               Good luck!
-            </p>
-
-        </article>
-        <button class="btn btn--stripe" type="button" id="startGameBtn"><a href="#hangman">Start Game</a></button>
-        <p id="timer"></p>
-        <section>
-            <img id="hangman" src="images/h0.png" alt="hangman">
-        </section>
-        <article id="message">
-            <!-- This is where messages should appear -->
-        </article>
-        <section id="gameBoard">
-            <section id="letterBoxes">
-                <!-- This is where the matched letters should appear, these should match the number of -->
-                <ul>
-                </ul>
-            </section>
+    <head>
+        <meta charset="UTF-8">
+        <title>Hangman</title>
+        <link rel="stylesheet" type="text/css" href="css/styles.css">
+        <script type="text/javascript" src="lib/script.js"></script>
+    </head>
+    <body>
+        <header>
+            <h1>Uppgift 04 - Hangman</h1>
+        </header>
+        <main>
+            <article id="instructions">
+                <h2>Welcome to the game of Hangman</h2>
+                <p>When you push the <em>Start Game</em>, the computer will select a random word or phrase. <br/>
+                A row of boxes will then appear (one for each letter in the selected word(s)) <br/><br/> 
+                Your goal is to guess what word has been selected, <br/>
+                you do this by clicking on the text input field and then typing the letter you want to guess on, <br/> 
+                followed by pressing <em>enter</em> or hitting the <em>Submit your guess</em> button. <br/><br/>
+                You can also type in the inputfield by clicking the letterbuttons in the game, this sends the input to the inputfield<br/>
+                For every letter you guess the corresponding letterbutton will be highlighted and disabled to help you keep track of your 
+                guesses if the guess is correct the letter will apper in the coresponding box above <br/><br/>
+                You have a maximum of 5 incorrect guesses before you hang &#128520;<br/>
+                Good luck!
+                </p>
+            </article>
+            <a href="#hangman"><button class="btn btn--stripe" type="button" id="startGameBtn" >Start Game</button></a>
+            <p id="timer"></p>
             <section>
-                <form id="guessField" autocomplete="off">
-                    <input id="userGuess" type="text" placeholder="Type your guess here!"/>
-                    <button class="btn btn--stripe" id ="userGuessBtn" type ="submit"/>Place your guess!</button>
-                </form>
-               
+                <img id="hangman" src="images/h0.png" alt="hangman">
             </section>
-            <ul id="letterButtons">
-                <li><button class="btn btn--stripe" value="A">A</button></li>
-                <li><button class="btn btn--stripe" value="B">B</button></li>
-                <li><button class="btn btn--stripe" value="C">C</button></li>
-                <li><button class="btn btn--stripe" value="D">D</button></li>
-                <li><button class="btn btn--stripe" value="E">E</button></li>
-                <li><button class="btn btn--stripe" value="F">F</button></li>
-                <li><button class="btn btn--stripe" value="G">G</button></li>
-                <li><button class="btn btn--stripe" value="H">H</button></li>
-                <li><button class="btn btn--stripe" value="I">I</button></li>
-                <li><button class="btn btn--stripe" value="J">J</button></li>
-                <li><button class="btn btn--stripe" value="K">K</button></li>
-                <li><button class="btn btn--stripe" value="L">L</button></li>
-                <li><button class="btn btn--stripe" value="M">M</button></li>
-                <li><button class="btn btn--stripe" value="N">N</button></li>
-                <li><button class="btn btn--stripe" value="O">O</button></li>
-                <li><button class="btn btn--stripe" value="P">P</button></li>
-                <li><button class="btn btn--stripe" value="Q">Q</button></li>
-                <li><button class="btn btn--stripe" value="R">R</button></li>
-                <li><button class="btn btn--stripe" value="S">S</button></li>
-                <li><button class="btn btn--stripe" value="T">T</button></li>
-                <li><button class="btn btn--stripe" value="U">U</button></li>
-                <li><button class="btn btn--stripe" value="V">V</button></li>
-                <li><button class="btn btn--stripe" value="W">W</button></li>
-                <li><button class="btn btn--stripe" value="X">X</button></li>
-                <li><button class="btn btn--stripe" value="Y">Y</button></li>
-                <li><button class="btn btn--stripe" value="Z">Z</button></li>
-                <li><button class="btn btn--stripe" value=" ">Spacebar</button></li>
-                <li><button class="btn btn--stripe" value="Delete"> Delete</button></li>
-            </ul>
-           
-            <label for="override">
+            <article id="message">
+                <p>
+                <!-- This is where messages should appear -->
+                </p>
+            </article>
+            <section id="gameBoard">
+                <section id="letterBoxes">
+                    <ul>
+                    <!-- This is where the matched letters should appear, these should match the number of -->
+                    </ul>
+                </section>
+                <section>
+                    <form id="guessField" autocomplete="off">
+                        <input id="userGuess" type="text" placeholder="Type your guess here!"/>
+                        <button class="btn btn--stripe" id ="userGuessBtn" type ="submit">Place your guess!</button>
+                    </form>
+                </section>
+                <ul id="letterButtons">
+                    <li><button class="btn btn--stripe" value="A">A</button></li>
+                    <li><button class="btn btn--stripe" value="B">B</button></li>
+                    <li><button class="btn btn--stripe" value="C">C</button></li>
+                    <li><button class="btn btn--stripe" value="D">D</button></li>
+                    <li><button class="btn btn--stripe" value="E">E</button></li>
+                    <li><button class="btn btn--stripe" value="F">F</button></li>
+                    <li><button class="btn btn--stripe" value="G">G</button></li>
+                    <li><button class="btn btn--stripe" value="H">H</button></li>
+                    <li><button class="btn btn--stripe" value="I">I</button></li>
+                    <li><button class="btn btn--stripe" value="J">J</button></li>
+                    <li><button class="btn btn--stripe" value="K">K</button></li>
+                    <li><button class="btn btn--stripe" value="L">L</button></li>
+                    <li><button class="btn btn--stripe" value="M">M</button></li>
+                    <li><button class="btn btn--stripe" value="N">N</button></li>
+                    <li><button class="btn btn--stripe" value="O">O</button></li>
+                    <li><button class="btn btn--stripe" value="P">P</button></li>
+                    <li><button class="btn btn--stripe" value="Q">Q</button></li>
+                    <li><button class="btn btn--stripe" value="R">R</button></li>
+                    <li><button class="btn btn--stripe" value="S">S</button></li>
+                    <li><button class="btn btn--stripe" value="T">T</button></li>
+                    <li><button class="btn btn--stripe" value="U">U</button></li>
+                    <li><button class="btn btn--stripe" value="V">V</button></li>
+                    <li><button class="btn btn--stripe" value="W">W</button></li>
+                    <li><button class="btn btn--stripe" value="X">X</button></li>
+                    <li><button class="btn btn--stripe" value="Y">Y</button></li>
+                    <li><button class="btn btn--stripe" value="Z">Z</button></li>
+                    <li><button class="btn btn--stripe" value=" ">Spacebar</button></li>
+                    <li><button class="btn btn--stripe" value="Delete"> Delete</button></li>
+                </ul>
+                <label for="overrideCheckbox">
                     Click on the box to unlock locked letterButtons
-                    <input type="checkbox" id="overrideCheckbox" name="override" />
-            </label>
-            
-        </section>
-        
-        
-    </main>
-    <footer>
-        Chas Academy - Hangman
-    </footer>
-</body>
-
+                    <input type="checkbox" id="overrideCheckbox"/>
+                </label>
+            </section>
+        </main>
+        <footer>
+            Chas Academy - Hangman
+        </footer>
+    </body>
 </html>
