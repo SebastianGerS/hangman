@@ -164,10 +164,10 @@ const letterChecker= function(e) {
     let itsAMatch = false;
     if (userGuess.length === 1) {
         for (let k = 0; k < selectedWordCopy.length; k++) {  
-            if(uppercaseCopy.charAt(k) === userGuess && !liLetterBoxes[k].classList.contains("corect-letter") ) {
+            if(uppercaseCopy.charAt(k) === userGuess && !liLetterBoxes[k].classList.contains("box-checked") ) {
                 itsAMatch = true;
                 liLetterBoxes[k].innerHTML = selectedWordCopy.charAt(k);
-                liLetterBoxes[k].classList.add("corect-letter");
+                liLetterBoxes[k].classList.add("box-checked");
                 numberOfCorrectLetters++;
             }
         }
@@ -176,9 +176,9 @@ const letterChecker= function(e) {
             if( l == guessIndex) {
                 itsAMatch = true;
                 for (let m = 0; m < userGuess.length; m++) {
-                    if (!liLetterBoxes[l].classList.contains("corect-letter")) {
+                    if (!liLetterBoxes[l].classList.contains("box-checked")) {
                         liLetterBoxes[l].innerHTML= selectedWordCopy.charAt(l);
-                        liLetterBoxes[l].classList.add("corect-letter");
+                        liLetterBoxes[l].classList.add("box-checked");
                         numberOfCorrectLetters++;
                     }
                     l++;
@@ -204,11 +204,11 @@ const overrideDisable = function() {
     for (let q = 0; q < letterButtons.length; q++) {
         if(!letterButtons[q].classList.contains('override')) {
             letterButtons[q].classList.add('override');
-            overrideCheckbox.style.backgroundColor = "#C6F200";
+            overrideCheckbox.classList.add("box-checked");
         }
         else {
             letterButtons[q].classList.remove('override');
-            overrideCheckbox.style.backgroundColor= "black";
+            overrideCheckbox.classList.remove("box-checked");
         }
     }
 }

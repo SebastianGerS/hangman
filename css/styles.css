@@ -226,10 +226,10 @@ footer {
 .liLetterBoxes:after {
   content: "\00a0";
 }
-.corect-letter {
+.box-checked {
   background-color: #CEFC00;
 }
-.corect-letter:after {
+.box-checked:after {
   content: "";
 }
   
@@ -277,20 +277,16 @@ footer {
   text-align: center;
   font-size: 1em;
 }
-#overrideCheckbox{
+
+input[type="checkbox"] {
   width:2.5em;
   height:2.5em;
   cursor: pointer;
   margin-left:0.7em;
-  background-color:black;
   border: 2px solid #C6F200;
   -webkit-appearance: none;
-  
 }
 
-#overrideCheckox::after{
-
-}
 
 label {
   margin-top:1em;
