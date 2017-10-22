@@ -228,7 +228,6 @@ footer {
 }
 .corect-letter {
   background-color: #CEFC00;
-  transition: 2s;
 }
 .corect-letter:after {
   content: "";
@@ -278,8 +277,28 @@ footer {
   text-align: center;
   font-size: 1em;
 }
-#overrideCheckbox {
-  margin-top:1.7em;
+#overrideCheckbox{
+  width:2.5em;
+  height:2.5em;
+  cursor: pointer;
+  margin-left:0.7em;
+  background-color:black;
+  border: 2px solid #C6F200;
+  -webkit-appearance: none;
+  
+}
+
+#overrideCheckox::after{
+
+}
+
+label {
+  margin-top:1em;
+  display:inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size:2em;
+  
 }
 
 @media only screen and (max-device-width: 740px) {
@@ -298,6 +317,10 @@ footer {
     padding: 0 0 1.4em 0;
     font-size: 3em;
   } 
+  #overrideCheckbox {
+    width:4em;
+    height:4em;
+  }
 
 }
 
@@ -377,7 +400,6 @@ a {
   background-color: #9CBF00;
   color: #CEFC00;
   border-color: #9CBF00;
-  transition: 1.3s;
 }
 
 .disabled:after, {
@@ -396,4 +418,8 @@ a {
     transparent 5px
   );
   border-top: 1px solid #000;
+}
+.override {
+  background-color: black;
+  color:#9CBF00;
 }

@@ -22,7 +22,6 @@
                followed by pressing <em>enter</em> or hitting the <em>Submit your guess</em> button. <br/><br/>
                You can also type in the inputfield by clicking the letterbuttons in the game, this sends the input to the inputfield<br/>
                For every letter you guess the corresponding letterbutton will be highlighted and disabled to help you keep track of your guesses if the guess is correct the letter will apper in the coresponding box above <br/><br/>
-               Note that it's also possible to guess on a complet word or phrase, but because letterbuttons become disabled you need to use your native keyboard if you already have one or more correct letters.<br/><br/>
                You have a maximum of 5 incorrect guesses before you hang &#128520;<br/>
                Good luck!
             </p>
@@ -46,10 +45,6 @@
                 <form id="guessField" autocomplete="off">
                     <input id="userGuess" type="text" placeholder="Type your guess here!"/>
                     <button class="btn btn--stripe" id ="userGuessBtn" type ="submit"/>Place your guess!</button>
-                    <label for="override">
-                        Unlock letterButtons (if you want to guess on a word or phrase)
-                        <input type="checkbox" id="overrideCheckbox" name="override" />
-                    </label>
                 </form>
                
             </section>
@@ -83,6 +78,12 @@
                 <li><button class="btn btn--stripe" value=" ">Spacebar</button></li>
                 <li><button class="btn btn--stripe" value="Delete"> Delete</button></li>
             </ul>
+           
+            <label for="override">
+                    Click on the box to unlock locked letterButtons
+                    <input type="checkbox" id="overrideCheckbox" name="override" />
+            </label>
+            
         </section>
         
         

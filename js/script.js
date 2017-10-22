@@ -202,10 +202,13 @@ const disableLetterButtons = function (userGuess) {
 }
 const overrideDisable = function() {
     for (let q = 0; q < letterButtons.length; q++) {
-        if(!letterButtons[q].classList.contains('override'))
+        if(!letterButtons[q].classList.contains('override')) {
             letterButtons[q].classList.add('override');
+            overrideCheckbox.style.backgroundColor = "#C6F200";
+        }
         else {
             letterButtons[q].classList.remove('override');
+            overrideCheckbox.style.backgroundColor= "black";
         }
     }
 }
